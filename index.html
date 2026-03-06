@@ -3,194 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 | 公式サイト</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>しろくま鯖 | Official Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
-            --main-blue: #00b4d8;
-            --sidebar-bg: #2b2d42;
-            --text-white: #ffffff;
-            --bg-light: #f8f9fa;
+            --primary: #00d4ff;
+            --secondary: #0056b3;
+            --accent: #ff007a;
+            --bg-dark: #0a0e14;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #e0e0e0;
         }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
             margin: 0;
+            background-color: var(--bg-dark);
+            color: var(--text);
             display: flex;
-            background-color: var(--bg-light);
-            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* 背景の装飾アニメーション */
+            background: radial-gradient(circle at top right, #002b4e, transparent),
+                        radial-gradient(circle at bottom left, #1a1a1a, transparent);
         }
 
-        /* サイドバー */
+        /* --- サイドバー --- */
         nav {
-            width: 250px;
-            background-color: var(--sidebar-bg);
-            color: var(--text-white);
+            width: 280px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--glass-border);
             height: 100vh;
             position: fixed;
+            z-index: 100;
             display: flex;
             flex-direction: column;
-            padding: 20px 0;
+            padding: 40px 0;
         }
 
-        nav h2 {
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--main-blue);
+            margin-bottom: 50px;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary);
         }
 
         nav a {
-            color: var(--text-white);
+            color: #aaa;
             text-decoration: none;
-            padding: 15px 25px;
-            transition: 0.3s;
+            padding: 18px 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
             cursor: pointer;
-            border-left: 4px solid transparent;
         }
 
-        nav a:hover {
-            background-color: #3d405b;
-            border-left: 4px solid var(--main-blue);
+        nav a i { width: 20px; text-align: center; }
+
+        nav a:hover, nav a.active-link {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(0,212,255,0.1), transparent);
+            border-left: 4px solid var(--primary);
         }
 
-        /* メインコンテンツ */
+        /* --- メインコンテンツ --- */
         main {
-            margin-left: 250px;
-            padding: 40px;
-            width: 100%;
-            min-height: 100vh;
+            margin-left: 280px;
+            padding: 60px;
+            flex: 1;
+            max-width: 1200px;
         }
 
         .page-content {
-            display: none; /* 最初は全部消しておく */
-            animation: fadeIn 0.5s ease;
+            display: none;
+            animation: slideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
-        .active {
-            display: block; /* 選択中だけ表示 */
+        .active-page { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- カードデザイン (Glassmorphism) --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .card {
-            background: white;
-            padding: 30px;
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        p { line-height: 1.8; color: #bbb; }
+
+        /* --- IPアドレス表示セクション --- */
+        .server-info {
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            max-width: 800px;
+            padding: 25px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
         }
 
-        h1 { color: var(--main-blue); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .server-info::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
 
-        /* サーバー情報カード */
-        .ip-card {
-            background: #edf2f4;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px dashed var(--main-blue);
+        @keyframes shine { 100% { left: 100%; } }
+
+        .ip-text { font-family: 'Montserrat', monospace; font-size: 1.1rem; }
+        .port-text { color: var(--accent); font-weight: bold; }
+
+        .copy-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
             cursor: pointer;
-            margin: 20px 0;
-            text-align: center;
         }
 
-        .ip-value { font-weight: bold; font-size: 1.2rem; color: #444; }
-        .port-value { color: #d62828; }
+        .copy-btn:hover { background: #fff; transform: scale(1.05); }
 
-        /* リストの装飾 */
-        ul { line-height: 2; }
-        .rule-important { color: #d62828; font-weight: bold; }
+        /* --- ボタン --- */
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #5865F2;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
 
-        /* スマホ対応 */
-        @media (max-width: 768px) {
-            nav { width: 100%; height: auto; position: relative; }
+        .discord-btn:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); transform: translateY(-3px); }
+
+        /* --- スマホ対応 --- */
+        @media (max-width: 900px) {
             body { flex-direction: column; }
-            main { margin-left: 0; padding: 20px; }
+            nav { width: 100%; height: auto; position: relative; padding: 20px 0; }
+            main { margin-left: 0; padding: 30px; }
+            .server-info { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <h2>🐾 しろくま鯖</h2>
-        <a onclick="showPage('home')">トップページ</a>
-        <a onclick="showPage('rules')">サーバールール</a>
-        <a onclick="showPage('join')">参加方法</a>
-        <a href="https://discord.gg/your-link" target="_blank">Discord (外部)</a>
+    <nav id="sidebar">
+        <div class="nav-logo">SIROKUMA SERVER</div>
+        <a onclick="showPage('home')" id="link-home" class="active-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a onclick="showPage('rules')" id="link-rules"><i class="fa-solid fa-gavel"></i> Rules</a>
+        <a onclick="showPage('join')" id="link-join"><i class="fa-solid fa-plug"></i> How to Join</a>
+        <a href="https://discord.gg/your-link" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
     </nav>
 
     <main>
         
-        <div id="home" class="page-content active">
-            <div class="card">
-                <h1>ようこそ、しろくま鯖へ！</h1>
-                <p>しろくま鯖は、マイクラ初心者からベテランまで、みんなが楽しくのんびりとサバイバルを楽しめるサーバーです。</p>
-                <p>アットホームな雰囲気で、自由な建築や冒険が可能です。まずはルールを確認して、私たちのコミュニティに参加してみませんか？</p>
+        <div id="home" class="page-content active-page">
+            <div class="glass-card">
+                <h1>Welcome to Sirokuma</h1>
+                <p>極寒の地から熱いコミュニティを。しろくま鯖は、自由と調和を愛するすべてのマイクラプレイヤーに開かれたサバイバルサーバーです。</p>
                 
-                <div class="ip-card" onclick="copyIP()">
-                    <div style="font-size: 0.8rem; color: var(--main-blue);">クリックしてアドレスをコピー</div>
-                    <div class="ip-value">
-                        <span id="ip-address">mrsirokuma.playerserver.jp</span><br>
-                        ポート: <span id="port-number" class="port-value">10274</span>
+                <div class="server-info">
+                    <div class="ip-text">
+                        <i class="fa-solid fa-server"></i> <span id="target-ip">mrsirokuma.playerserver.jp</span><br>
+                        <i class="fa-solid fa-door-open"></i> Port: <span id="target-port" class="port-text">10274</span>
                     </div>
+                    <button class="copy-btn" onclick="copyToClipboard()">COPY ADDRESS</button>
                 </div>
-                <p>現在は 24時間稼働中 です。お気軽にお越しください！</p>
+
+                <p>現在、24時間365日稼働中。あなたの参加を心よりお待ちしています。</p>
             </div>
         </div>
 
         <div id="rules" class="page-content">
-            <div class="card">
-                <h1>サーバールール</h1>
-                <p>みんなが楽しく遊ぶために、以下のルールを守ってください。</p>
-                <ul>
-                    <li><span class="rule-important">荒らし行為の禁止：</span> 他人の建物やアイテムを壊したり盗んだりしないでください。</li>
-                    <li><span class="rule-important">迷惑行為の禁止：</span> 過度な暴言や、他のプレイヤーが不快に思う行動は控えてください。</li>
-                    <li><span class="rule-important">チート・不正ツールの禁止：</span> ゲームバランスを壊すツールの使用は即BAN対象となります。</li>
-                    <li><span class="rule-important">装置の制限：</span> サーバーに負荷をかけすぎる装置は、撤去をお願いする場合があります。</li>
-                </ul>
-                <p>ルールを守って、楽しいマイクラライフを！</p>
+            <div class="glass-card">
+                <h1>Server Rules</h1>
+                <p>より良いコミュニティを維持するため、以下の行動を固く禁じます。</p>
+                <div style="background: rgba(255,0,0,0.05); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent);">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><i class="fa-solid fa-ban" style="color: var(--accent);"></i> 荒らし行為（窃盗・破壊）の全面禁止</li>
+                        <li style="margin-bottom: 15px;"><i class="fa-solid fa-ban" style="color: var(--accent);"></i> チート・不正ツールの使用（X-Ray等）</li>
+                        <li style="margin-bottom: 15px;"><i class="fa-solid fa-ban" style="color: var(--accent);"></i> 他者への誹謗中傷・ハラスメント</li>
+                    </ul>
+                </div>
+                <p>※違反者には厳格な処置（BAN等）を行います。</p>
             </div>
         </div>
 
         <div id="join" class="page-content">
-            <div class="card">
-                <h1>参加方法</h1>
-                <p>当サーバーには以下の手順で参加できます。</p>
-                <ol>
-                    <li>マインクラフトを起動し、「マルチプレイ」または「サーバーを追加」を選択。</li>
-                    <li>サーバーアドレスに <strong>mrsirokuma.playerserver.jp</strong> を入力。</li>
-                    <li>ポート番号に <strong>10274</strong> を入力。</li>
-                    <li>「完了」を押して、サーバーに接続！</li>
-                </ol>
-                <p>※Java版・統合版のどちらでも参加可能です（環境による）。</p>
-                <p>もし接続できない場合は、Discordでお気軽にご質問ください。</p>
+            <div class="glass-card">
+                <h1>How to Join</h1>
+                <p>しろくま鯖への参加はとても簡単です。</p>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span style="font-size: 2rem; color: var(--primary);">01.</span>
+                        <span>最新版のマインクラフトを起動します。</span>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span style="font-size: 2rem; color: var(--primary);">02.</span>
+                        <span>「マルチプレイ」から「サーバーを追加」を選択。</span>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span style="font-size: 2rem; color: var(--primary);">03.</span>
+                        <span>IPとポートを入力し、接続完了！</span>
+                    </div>
+                </div>
+                <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> コミュニティに参加して相談する</a>
             </div>
         </div>
 
     </main>
 
     <script>
-        // ページ切り替え関数
+        // ページ切り替え機能
         function showPage(pageId) {
-            // すべてのコンテンツを非表示にする
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // 指定したIDのコンテンツを表示する
-            document.getElementById(pageId).classList.add('active');
-            
-            // スマホの場合、クリック後に少し上にスクロールさせる
-            window.scrollTo(0, 0);
+            // コンテンツの切り替え
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+
+            // サイドバーの見た目の切り替え
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active-link'));
+            document.getElementById('link-' + pageId).classList.add('active-link');
+
+            // スムーススクロール（スマホ用）
+            if (window.innerWidth <= 900) {
+                window.scrollTo({ top: document.querySelector('main').offsetTop - 20, behavior: 'smooth' });
+            }
         }
 
-        // IPコピー関数
-        function copyIP() {
-            const ip = document.getElementById('ip-address').innerText;
-            navigator.clipboard.writeText(ip);
-            alert("サーバーアドレスをコピーしました！\n" + ip + "\n\n※ポート番号 10274 もお忘れなく！");
+        // コピー機能
+        async function copyToClipboard() {
+            const ip = document.getElementById('target-ip').innerText;
+            try {
+                await navigator.clipboard.writeText(ip);
+                alert("Copied to clipboard!\nAddress: " + ip + "\nDon't forget Port: 10274");
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
         }
     </script>
 </body>
