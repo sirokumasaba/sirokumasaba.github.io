@@ -3,41 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 | Minecraft Server Official</title>
+    <title>しろくま鯖 公式サイト</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main-blue: #00b4d8; --soft-white: #f8f9fa; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--soft-white); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
-        h1 { color: var(--main-blue); font-size: 2rem; margin-bottom: 10px; }
-        .server-status { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
-        .ip-card { background: #edf2f4; padding: 15px; border-radius: 10px; border: 2px dashed var(--main-blue); position: relative; cursor: pointer; transition: 0.3s; }
-        .ip-card:hover { background: #e2eafc; }
-        .copy-hint { font-size: 0.7rem; color: var(--main-blue); margin-top: 5px; }
-        .btn { display: inline-block; margin-top: 25px; padding: 12px 25px; background-color: var(--main-blue); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s; }
-        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd; /* 薄い水色 */
+            color: #333;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid #90caf9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 { color: #1565c0; margin-bottom: 5px; }
+        .subtitle { font-size: 1.1rem; color: #666; margin-top: 0; }
+        .info-box {
+            background: #f1f8ff;
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .footer { text-align: center; font-size: 0.8rem; color: #999; margin-top: 50px; padding-bottom: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🐾 しろくま鯖 🐾</h1>
-        <p class="server-status">アットホームなサバイバルサーバー</p>
-        
-        <div class="ip-card" onclick="copyIP()">
-            <div id="ip-address">play.sirokuma-saba.example</div>
-            <div class="copy-hint">クリックしてIPをコピー</div>
-        </div>
 
-        <p>初心者大歓迎！みんなで仲良くマイクラを楽しもう。</p>
-        
-        <a href="#" class="btn">Discordに参加する</a>
+<header>
+    <h1>🐾 しろくま鯖 公式サイト 🐾</h1>
+    <p class="subtitle">サバイバルマイクラサーバー「しろくま鯖」へようこそ！</p>
+</header>
+
+<div class="container">
+    <h2>サーバーについて</h2>
+    <p>しろくま鯖は、みんなで仲良くサバイバルを楽しむマイクラサーバーです。<br>
+    荒らし対策完備で、初心者の方でも安心して遊べます！</p>
+
+    <div class="info-box">
+        サーバーIP: 準備中 (ここを書き換えてください)
     </div>
 
-    <script>
-        function copyIP() {
-            const ip = document.getElementById('ip-address').innerText;
-            navigator.clipboard.writeText(ip);
-            alert("IPアドレスをコピーしました！：" + ip);
-        }
-    </script>
+    <h2>参加ルール</h2>
+    <ul>
+        <li>他人の建物を壊さない</li>
+        <li>チャットで暴言を吐かない</li>
+        <li>みんなで仲良く！</li>
+    </ul>
+
+    <p style="text-align: center; margin-top: 30px;">
+        <a href="ここにDiscordリンクなどを貼る" style="background: #5865F2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Discordに参加する</a>
+    </p>
+</div>
+
+<div class="footer">
+    © 2026 しろくま鯖 All Rights Reserved.
+</div>
+
 </body>
 </html>
