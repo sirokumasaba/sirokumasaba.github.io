@@ -1,0 +1,156 @@
+/* 全体の基本設定 */
+:root {
+    --mc-bg: #404040;
+    --mc-panel: #c6c6c6;
+    --mc-border-light: #ffffff;
+    --mc-border-dark: #555555;
+    --mc-green: #5ea818;
+    --mc-green-hover: #76d61f;
+}
+
+body {
+    margin: 0;
+    font-family: 'DotGothic16', sans-serif;
+    color: white;
+    /* 背景をマイクラの土ブロック風に（画像URLはサンプル） */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('https://www.transparenttextures.com/patterns/dark-matter.png'), #1e1e1e;
+    display: flex;
+}
+
+/* サイドバーのデザイン */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #202020;
+    border-right: 4px solid var(--mc-border-dark);
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar-header h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffaa00;
+    text-shadow: 2px 2px #3f2a00;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+}
+
+.nav-links li {
+    margin-bottom: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ddd;
+    display: block;
+    padding: 10px;
+    background: #333;
+    border: 2px solid var(--mc-border-dark);
+    text-align: center;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    background: var(--mc-green);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* メインコンテンツ */
+#content {
+    margin-left: 290px;
+    padding: 40px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.minecraft-title {
+    font-size: 4rem;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 4px 4px #3f3f3f;
+    margin-bottom: 10px;
+}
+
+/* マイクラ風カード（パネル） */
+.mc-card {
+    background: var(--mc-panel);
+    border: 4px solid #000;
+    box-shadow: inset 4px 4px var(--mc-border-light), inset -4px -4px var(--mc-border-dark);
+    padding: 25px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.mc-card h2 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #888;
+    padding-bottom: 10px;
+}
+
+/* IPコピー部分 */
+.info-box {
+    background: #000;
+    color: #00ff00;
+    padding: 10px 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #555;
+}
+
+.info-box button {
+    background: var(--mc-panel);
+    border: 2px solid #000;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 5px 10px;
+    box-shadow: inset 2px 2px #fff, inset -2px -2px #555;
+}
+
+.info-box button:active {
+    box-shadow: inset -2px -2px #fff, inset 2px 2px #555;
+}
+
+/* ボタン */
+.mc-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background: var(--mc-green);
+    color: white;
+    text-decoration: none;
+    border: 4px solid #000;
+    box-shadow: inset 3px 3px var(--mc-green-hover), inset -3px -3px #3d6e10;
+    font-size: 1.2rem;
+}
+
+.mc-button:hover {
+    background: var(--mc-green-hover);
+}
+
+/* テーブルスタイル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #999;
+    text-align: left;
+}
+
+th {
+    width: 30%;
+    color: #555;
+}
