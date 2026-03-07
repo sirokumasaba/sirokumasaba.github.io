@@ -2,39 +2,39 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>仕様・管理者 - しろくま鯖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サーバー情報 - しろくま鯖</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav id="sidebar">
+    <h1 class="page-title">🛠 サーバー情報</h1>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="rules.html">ルール</a></li>
+                <li><a href="info.html">仕様・管理</a></li>
+            </ul>
         </nav>
 
-    <main>
-        <div class="mc-container">
-            <h2>🛠 サーバーの仕様</h2>
-            <table style="width:100%; text-align:left; border-spacing: 0 10px;">
-                <tr><th>バージョン</th><td>Minecraft 統合版 最新版</td></tr>
-                <tr><th>導入アドオン</th><td>
-                    ・木こり一括破壊<br>
-                    ・しろくま特製家具<br>
-                    ・プレイヤーショップ機能
-                </td></tr>
-                <tr><th>独自コマンド</th><td>
-                    <code>/spawn</code> - 初期リスへ戻る<br>
-                    <code>/home</code> - 自分の拠点へワープ
-                </td></tr>
-            </table>
+        <main>
+            <div class="mc-window">
+                <h2>⚙️ システム仕様</h2>
+                <table>
+                    <tr><th>バージョン</th><td>Minecraft 統合版 (最新)</td></tr>
+                    <tr><th>ホスト</th><td>Agames (高性能サーバー)</td></tr>
+                    <tr><th>導入要素</th><td>木こり、ショップ、独自コマンドなど</td></tr>
+                </table>
 
-            <h2 style="margin-top:40px;">❄️ 運営メンバー</h2>
-            <div class="admin-card" style="display:flex; align-items:center; gap:20px;">
-                <img src="https://minotar.net/avatar/steve/64" style="border:3px solid #000;">
-                <div>
-                    <span class="admin-badge">OWNER</span> <strong>しろくま長</strong><br>
-                    <small>このサーバーの主。氷山の上で寝るのが好き。</small>
-                </div>
+                <h2 style="margin-top:30px;">❄️ 管理者 (Admins)</h2>
+                <p>困ったことがあればDiscordでお呼びください。</p>
+                <ul>
+                    <li><strong>オーナー</strong>: しろくま隊長</li>
+                    <li><strong>モデレーター</strong>: ペンギン補佐</li>
+                </ul>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 </body>
 </html>
