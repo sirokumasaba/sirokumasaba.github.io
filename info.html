@@ -2,39 +2,33 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>サーバー情報 - しろくま鯖</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1 class="page-title">🛠 サーバー情報</h1>
-    <div class="wrapper">
-        <nav id="sidebar">
-            <ul class="nav-links">
-                <li><a href="index.html">ホーム</a></li>
-                <li><a href="rules.html">ルール</a></li>
-                <li><a href="info.html">仕様・管理</a></li>
-            </ul>
+    <nav id="sidebar">
         </nav>
 
-        <main>
-            <div class="mc-window">
-                <h2>⚙️ システム仕様</h2>
-                <table>
-                    <tr><th>バージョン</th><td>Minecraft 統合版 (最新)</td></tr>
-                    <tr><th>ホスト</th><td>Agames (高性能サーバー)</td></tr>
-                    <tr><th>導入要素</th><td>木こり、ショップ、独自コマンドなど</td></tr>
-                </table>
+    <main>
+        <div class="mc-container">
+            <h2>🛠 サーバースペック・仕様</h2>
+            <table>
+                <tr><th>環境</th><td>Agames 高性能レンタルサーバー</td></tr>
+                <tr><th>エディション</th><td>Minecraft 統合版 (Bedrock Edition)</td></tr>
+                <tr><th>導入アドオン</th><td>一括破壊、家具追加、ショップ、経済システム</td></tr>
+                <tr><th>主要コマンド</th><td>/spawn, /sethome, /tpa</td></tr>
+            </table>
 
-                <h2 style="margin-top:30px;">❄️ 管理者 (Admins)</h2>
-                <p>困ったことがあればDiscordでお呼びください。</p>
-                <ul>
-                    <li><strong>オーナー</strong>: しろくま隊長</li>
-                    <li><strong>モデレーター</strong>: ペンギン補佐</li>
-                </ul>
+            <h2 style="margin-top:40px;">❄️ 管理メンバー</h2>
+            <div style="display:flex; align-items:center; gap:20px; background:white; padding:15px; border:3px solid #000;">
+                <img src="https://minotar.net/avatar/steve/60" style="border:2px solid #000;">
+                <div>
+                    <span class="badge-admin">OWNER</span> <strong>しろくま管理者</strong><br>
+                    <small>サーバーの全体管理と不具合対応を担当しています。</small>
+                </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 </body>
 </html>
