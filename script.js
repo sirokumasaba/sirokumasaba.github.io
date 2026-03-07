@@ -1,19 +1,15 @@
-// クリップボードにコピーする関数
-function copyToClipboard(elementId) {
-    const text = document.getElementById(elementId).innerText;
+function copy(id) {
+    const text = document.getElementById(id).innerText;
     navigator.clipboard.writeText(text).then(() => {
-        alert('コピーしました: ' + text);
-    }).catch(err => {
-        console.error('コピーに失敗しました', err);
+        // マイクラの「経験値オーブ」を拾った時のような音を出せると最高ですが、まずはアラートで。
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "OK!";
+        btn.style.backgroundColor = "#5ea818";
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.backgroundColor = "#c6c6c6";
+        }, 1500);
     });
 }
-
-// スムーズスクロール
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
