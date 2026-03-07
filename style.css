@@ -1,45 +1,49 @@
+/* --- マイクラ風・氷の世界テーマ --- */
 :root {
-    --mc-blue: #3c85d5;
-    --mc-light-blue: #7dbeff;
-    --mc-snow: #f0f8ff;
-    --mc-dark: #212121;
-    --mc-border-light: #ffffff;
-    --mc-border-dark: #555555;
-    --mc-gui-bg: #c6c6c6;
+    --mc-blue: #7dbeff;         /* 氷の青 */
+    --mc-light-blue: #e1f0ff;   /* 雪の白青 */
+    --mc-white: #ffffff;
+    --mc-dark: #313233;         /* テキスト用 */
+    --mc-border-outer: #000000;
+    --mc-border-inner: #ffffff;
+    --mc-gui-bg: #f0f8ff;       /* 全体の背景（薄い水色） */
 }
+
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
-    padding: 0;
     font-family: 'DotGothic16', sans-serif;
-    /* 背景を雪の結晶パターンに（しろくま感） */
     background-color: #8daec4;
-    background-image: url('https://www.transparenttextures.com/patterns/snow.png');
-    color: #333;
+    /* 背景：雪のバイオームをイメージしたグラデーション */
+    background: linear-gradient(180deg, #a5d1ff 0%, #ffffff 100%);
+    background-attachment: fixed;
+    color: var(--mc-dark);
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
-/* --- サイドバー --- */
+/* --- レイアウトの崩れ防止（Flexbox） --- */
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* スマホ対応：画面が狭い時は縦並びに */
+@media (max-width: 768px) {
+    .wrapper { flex-direction: column; }
+    #sidebar { width: 100% !important; margin-bottom: 20px; }
+}
+
+/* --- サイドバー（マイクラのボタン風） --- */
 #sidebar {
-    width: 260px;
-    background: #1e1e1e url('https://www.transparenttextures.com/patterns/dark-matter.png');
-    border-right: 6px solid #000;
-    position: fixed;
-    height: 100%;
-    z-index: 100;
-    padding: 20px 10px;
-    box-shadow: 4px 0 0 rgba(0,0,0,0.3);
-}
-
-.sidebar-logo {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sidebar-logo img {
-    width: 80px; /* しろくまの顔アイコンなど */
-    image-rendering: pixelated;
+    width: 250px;
+    padding-right: 20px;
 }
 
 .nav-links {
@@ -47,99 +51,85 @@ body {
     padding: 0;
 }
 
-.nav-links li { margin: 15px 0; }
+.nav-links li { margin-bottom: 10px; }
 
 .nav-links a {
     display: block;
-    padding: 12px;
-    color: #fff;
+    padding: 15px;
     text-decoration: none;
+    color: #fff;
     text-align: center;
-    background: #4a4a4a;
-    border: 3px solid #000;
-    box-shadow: inset 3px 3px #777, inset -3px -3px #222;
-    transition: all 0.1s;
+    background: #4a4a4a; /* デフォルトの石ボタン色 */
+    border: 4px solid #000;
+    box-shadow: inset 3px 3px #888, inset -3px -3px #222;
+    text-shadow: 2px 2px #000;
 }
 
 .nav-links a:hover {
     background: var(--mc-blue);
-    box-shadow: inset 3px 3px var(--mc-light-blue), inset -3px -3px #204b7a;
-    transform: scale(1.05);
+    box-shadow: inset 3px 3px #ade0ff, inset -3px -3px #3c6ba0;
 }
 
-/* --- メインコンテンツ --- */
+/* --- メインコンテンツ（インベントリ風） --- */
 main {
-    margin-left: 280px;
-    padding: 40px;
-    flex-grow: 1;
+    flex: 1;
 }
 
-.mc-container {
-    background: var(--mc-gui-bg);
-    border: 5px solid #000;
-    box-shadow: inset 4px 4px var(--mc-border-light), inset -4px -4px var(--mc-border-dark);
+.mc-window {
+    background: #c6c6c6; /* マイクラGUIのグレー */
+    border: 4px solid #000;
+    box-shadow: inset 4px 4px #fff, inset -4px -4px #555;
     padding: 30px;
-    max-width: 900px;
-    margin: 0 auto;
     position: relative;
 }
 
-/* しろくまの装飾 */
-.mc-container::before {
-    content: "🐾";
+/* しろくま感の装飾 */
+.mc-window::after {
+    content: "❄️🐾";
     position: absolute;
-    top: -20px;
-    right: 20px;
-    font-size: 40px;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
 }
 
-h1.title {
-    font-size: 3rem;
-    text-align: center;
+h1.page-title {
+    font-size: 2.5rem;
     color: #fff;
-    text-shadow: 4px 4px #000;
-    background: rgba(0,0,0,0.3);
-    padding: 20px;
-    border: 4px dashed #fff;
-    margin-bottom: 40px;
+    text-shadow: 3px 3px #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 h2 {
-    border-bottom: 3px solid #888;
-    padding-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: #a5d1ff;
+    padding: 10px;
+    border: 3px solid #000;
+    display: inline-block;
+    margin-top: 0;
 }
 
-/* コピーエリア */
-.address-card {
+/* IPコピーボックス */
+.ip-box {
     background: #313233;
     border: 4px solid #000;
-    padding: 20px;
+    padding: 15px;
     color: #00ff00;
-    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
-.copy-btn {
+.btn-copy {
     background: #c6c6c6;
-    border: 3px solid #000;
-    padding: 8px 16px;
+    border: 2px solid #000;
+    padding: 5px 10px;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: inset 2px 2px #fff, inset -2px -2px #555;
 }
 
-.copy-btn:active {
-    box-shadow: inset -2px -2px #fff, inset 2px 2px #555;
-}
-
-/* リスト・テーブル */
-ul.rules { line-height: 1.8; }
-.admin-badge {
-    background: #ffaa00;
-    color: #fff;
-    padding: 2px 8px;
-    border: 2px solid #000;
-    font-size: 0.8rem;
-}
+/* リスト・テーブル装飾 */
+ul { line-height: 1.6; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { border: 2px solid #888; padding: 10px; text-align: left; }
+th { background: #b0b0b0; }
