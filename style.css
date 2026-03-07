@@ -1,156 +1,145 @@
-/* 全体の基本設定 */
 :root {
-    --mc-bg: #404040;
-    --mc-panel: #c6c6c6;
+    --mc-blue: #3c85d5;
+    --mc-light-blue: #7dbeff;
+    --mc-snow: #f0f8ff;
+    --mc-dark: #212121;
     --mc-border-light: #ffffff;
     --mc-border-dark: #555555;
-    --mc-green: #5ea818;
-    --mc-green-hover: #76d61f;
+    --mc-gui-bg: #c6c6c6;
 }
 
 body {
     margin: 0;
+    padding: 0;
     font-family: 'DotGothic16', sans-serif;
-    color: white;
-    /* 背景をマイクラの土ブロック風に（画像URLはサンプル） */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                url('https://www.transparenttextures.com/patterns/dark-matter.png'), #1e1e1e;
+    /* 背景を雪の結晶パターンに（しろくま感） */
+    background-color: #8daec4;
+    background-image: url('https://www.transparenttextures.com/patterns/snow.png');
+    color: #333;
     display: flex;
+    min-height: 100vh;
 }
 
-/* サイドバーのデザイン */
+/* --- サイドバー --- */
 #sidebar {
-    width: 250px;
-    height: 100vh;
-    background: #202020;
-    border-right: 4px solid var(--mc-border-dark);
+    width: 260px;
+    background: #1e1e1e url('https://www.transparenttextures.com/patterns/dark-matter.png');
+    border-right: 6px solid #000;
     position: fixed;
-    padding: 20px;
+    height: 100%;
+    z-index: 100;
+    padding: 20px 10px;
+    box-shadow: 4px 0 0 rgba(0,0,0,0.3);
 }
 
-.sidebar-header h3 {
+.sidebar-logo {
     text-align: center;
-    font-size: 1.5rem;
-    color: #ffaa00;
-    text-shadow: 2px 2px #3f2a00;
+    margin-bottom: 30px;
+}
+
+.sidebar-logo img {
+    width: 80px; /* しろくまの顔アイコンなど */
+    image-rendering: pixelated;
 }
 
 .nav-links {
     list-style: none;
     padding: 0;
-    margin-top: 40px;
 }
 
-.nav-links li {
-    margin-bottom: 15px;
-}
+.nav-links li { margin: 15px 0; }
 
 .nav-links a {
-    text-decoration: none;
-    color: #ddd;
     display: block;
-    padding: 10px;
-    background: #333;
-    border: 2px solid var(--mc-border-dark);
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
     text-align: center;
-    transition: 0.2s;
+    background: #4a4a4a;
+    border: 3px solid #000;
+    box-shadow: inset 3px 3px #777, inset -3px -3px #222;
+    transition: all 0.1s;
 }
 
 .nav-links a:hover {
-    background: var(--mc-green);
-    color: white;
+    background: var(--mc-blue);
+    box-shadow: inset 3px 3px var(--mc-light-blue), inset -3px -3px #204b7a;
     transform: scale(1.05);
 }
 
-/* メインコンテンツ */
-#content {
-    margin-left: 290px;
+/* --- メインコンテンツ --- */
+main {
+    margin-left: 280px;
     padding: 40px;
-    width: 100%;
-    max-width: 900px;
+    flex-grow: 1;
 }
 
-.minecraft-title {
-    font-size: 4rem;
-    text-align: center;
-    color: #ffffff;
-    text-shadow: 4px 4px #3f3f3f;
-    margin-bottom: 10px;
-}
-
-/* マイクラ風カード（パネル） */
-.mc-card {
-    background: var(--mc-panel);
-    border: 4px solid #000;
+.mc-container {
+    background: var(--mc-gui-bg);
+    border: 5px solid #000;
     box-shadow: inset 4px 4px var(--mc-border-light), inset -4px -4px var(--mc-border-dark);
-    padding: 25px;
-    margin-bottom: 30px;
-    color: #333;
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
 }
 
-.mc-card h2 {
-    margin-top: 0;
+/* しろくまの装飾 */
+.mc-container::before {
+    content: "🐾";
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    font-size: 40px;
+}
+
+h1.title {
+    font-size: 3rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 4px 4px #000;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border: 4px dashed #fff;
+    margin-bottom: 40px;
+}
+
+h2 {
+    border-bottom: 3px solid #888;
+    padding-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
-    border-bottom: 2px solid #888;
-    padding-bottom: 10px;
 }
 
-/* IPコピー部分 */
-.info-box {
-    background: #000;
+/* コピーエリア */
+.address-card {
+    background: #313233;
+    border: 4px solid #000;
+    padding: 20px;
     color: #00ff00;
-    padding: 10px 15px;
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid #555;
+    margin: 20px 0;
 }
 
-.info-box button {
-    background: var(--mc-panel);
-    border: 2px solid #000;
+.copy-btn {
+    background: #c6c6c6;
+    border: 3px solid #000;
+    padding: 8px 16px;
     cursor: pointer;
     font-family: inherit;
-    padding: 5px 10px;
     box-shadow: inset 2px 2px #fff, inset -2px -2px #555;
 }
 
-.info-box button:active {
+.copy-btn:active {
     box-shadow: inset -2px -2px #fff, inset 2px 2px #555;
 }
 
-/* ボタン */
-.mc-button {
-    display: inline-block;
-    padding: 15px 30px;
-    background: var(--mc-green);
-    color: white;
-    text-decoration: none;
-    border: 4px solid #000;
-    box-shadow: inset 3px 3px var(--mc-green-hover), inset -3px -3px #3d6e10;
-    font-size: 1.2rem;
-}
-
-.mc-button:hover {
-    background: var(--mc-green-hover);
-}
-
-/* テーブルスタイル */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #999;
-    text-align: left;
-}
-
-th {
-    width: 30%;
-    color: #555;
+/* リスト・テーブル */
+ul.rules { line-height: 1.8; }
+.admin-badge {
+    background: #ffaa00;
+    color: #fff;
+    padding: 2px 8px;
+    border: 2px solid #000;
+    font-size: 0.8rem;
 }
