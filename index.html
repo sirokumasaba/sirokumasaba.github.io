@@ -2,87 +2,38 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 - 公式サイト</title>
+    <title>しろくま鯖 - 公式ポータル</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>しろくま鯖</h3>
+        <div class="sidebar-logo">
+            <h2 style="color: #fff;">🐾 しろくま鯖</h2>
         </div>
         <ul class="nav-links">
-            <li><a href="#join">参加方法</a></li>
-            <li><a href="#rules">ルール</a></li>
-            <li><a href="#specs">サーバー仕様</a></li>
-            <li><a href="#admin">管理者</a></li>
-            <li><a href="#discord" class="discord-btn">Discord</a></li>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="rules.html">ルール</a></li>
+            <li><a href="info.html">サーバー情報</a></li>
+            <li><a href="https://discord.gg/yourlink" style="background:#5865F2;">Discord</a></li>
         </ul>
     </nav>
 
-    <main id="content">
-        <header class="hero">
-            <h1 class="minecraft-title">しろくま鯖</h1>
-            <p>統合版マインクラフト・サバイバルサーバー</p>
-        </header>
+    <main>
+        <h1 class="title">ようこそ、しろくま鯖へ！</h1>
+        
+        <div class="mc-container">
+            <h2><img src="https://img.icons8.com/color/48/ice-pop.png"> サーバー概要</h2>
+            <p>しろくま鯖は、まったりとしたサバイバルを愛するプレイヤーが集まる統合版（Bedrock）サーバーです。<br>
+            一面の銀世界のように、穏やかで自由なコミュニティを目指しています。</p>
 
-        <section id="join" class="mc-card">
-            <h2><img src="https://img.icons8.com/color/48/minecraft-grass-cube.png" alt="icon"> 参加方法</h2>
-            <div class="address-container">
-                <div class="info-box">
-                    <span>IPアドレス:</span>
-                    <code id="server-ip">play.example.com</code> 
-                    <button onclick="copyToClipboard('server-ip')">コピー</button>
-                </div>
-                <div class="info-box">
-                    <span>ポート番号:</span>
-                    <code id="server-port">19132</code>
-                    <button onclick="copyToClipboard('server-port')">コピー</button>
-                </div>
+            <div class="address-card">
+                <p>サーバーに接続して冒険を始めよう！</p>
+                <div>IP: <span id="ip">shirokuma.agames.jp</span> <button class="copy-btn" onclick="copy('ip')">コピー</button></div>
+                <div style="margin-top:10px;">Port: <span id="port">19132</span> <button class="copy-btn" onclick="copy('port')">コピー</button></div>
             </div>
-            <p class="hint">※サーバー追加画面で上記を入力して参加してください。</p>
-        </section>
-
-        <section id="rules" class="mc-card">
-            <h2><img src="https://img.icons8.com/color/48/book-shelf.png" alt="icon"> サーバー内ルール</h2>
-            <ul class="rule-list">
-                <li><strong>他人の建造物を壊さない</strong>：許可なく他人の土地や建物を弄るのは禁止です。</li>
-                <li><strong>景観を大切に</strong>：意味のない1ブロックタワーや、浮いたままの葉っぱを残さないでください。</li>
-                <li><strong>公平なプレイ</strong>：X-Ray（透過）、自動クリック、各種チートツールの使用など、ゲームバランスを著しく損なう行為は厳禁です。</li>
-                <li><strong>サーバー負荷の軽減</strong>：過度なクロック回路や、大量のMobを1箇所に溜める行為は避けてください。</li>
-                <li><strong>礼儀を忘れずに</strong>：暴言や嫌がらせ行為は、即座にBAN対象となります。</li>
-            </ul>
-        </section>
-
-        <section id="specs" class="mc-card">
-            <h2><img src="https://img.icons8.com/color/48/settings.png" alt="icon"> サーバー仕様</h2>
-            <table>
-                <tr><th>ホスティング</th><td>Agames (高性能プラン)</td></tr>
-                <tr><th>導入アドオン</th><td>一括破壊アドオン、家具追加、独自Mob</td></tr>
-                <tr><th>主なコマンド</th><td>/spawn, /home, /tpa (導入予定)</td></tr>
-                <tr><th>難易度</th><td>ノーマル</td></tr>
-            </ul>
-            </table>
-        </section>
-
-        <section id="admin" class="mc-card">
-            <h2><img src="https://img.icons8.com/color/48/steve.png" alt="icon"> 管理者</h2>
-            <div class="admin-list">
-                <div class="admin-item">
-                    <span class="rank">Owner</span> <strong>[ユーザー名]</strong>
-                </div>
-            </div>
-        </section>
-
-        <section id="discord" class="mc-card discord-section">
-            <h2>Discordコミュニティ</h2>
-            <p>最新情報や不具合報告、雑談はこちらで行っています。</p>
-            <a href="あなたのDiscord招待URL" class="mc-button">Discordに参加する</a>
-        </section>
+        </div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
