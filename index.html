@@ -2,38 +2,40 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>しろくま鯖 - 公式ポータル</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>しろくま鯖 - 公式サイト</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav id="sidebar">
-        <div class="sidebar-logo">
-            <h2 style="color: #fff;">🐾 しろくま鯖</h2>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html">ホーム</a></li>
-            <li><a href="rules.html">ルール</a></li>
-            <li><a href="info.html">サーバー情報</a></li>
-            <li><a href="https://discord.gg/yourlink" style="background:#5865F2;">Discord</a></li>
-        </ul>
-    </nav>
+    <h1 class="page-title">❄️ しろくま鯖 ❄️</h1>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="rules.html">ルール</a></li>
+                <li><a href="info.html">仕様・管理</a></li>
+                <li><a href="https://discord.gg/YOUR_LINK" style="background:#5865F2;">Discord</a></li>
+            </ul>
+        </nav>
 
-    <main>
-        <h1 class="title">ようこそ、しろくま鯖へ！</h1>
-        
-        <div class="mc-container">
-            <h2><img src="https://img.icons8.com/color/48/ice-pop.png"> サーバー概要</h2>
-            <p>しろくま鯖は、まったりとしたサバイバルを愛するプレイヤーが集まる統合版（Bedrock）サーバーです。<br>
-            一面の銀世界のように、穏やかで自由なコミュニティを目指しています。</p>
+        <main>
+            <div class="mc-window">
+                <h2>🐾 ようこそ！</h2>
+                <p>しろくま鯖は、雪原のような広大な世界で自由に生活を楽しむ統合版マイクラサーバーです。<br>
+                初心者からベテランまで、しろくまのようにのんびり過ごしましょう。</p>
 
-            <div class="address-card">
-                <p>サーバーに接続して冒険を始めよう！</p>
-                <div>IP: <span id="ip">shirokuma.agames.jp</span> <button class="copy-btn" onclick="copy('ip')">コピー</button></div>
-                <div style="margin-top:10px;">Port: <span id="port">19132</span> <button class="copy-btn" onclick="copy('port')">コピー</button></div>
+                <div class="ip-box">
+                    <span>IP: <strong id="srv-ip">shirokuma.agames.jp</strong></span>
+                    <button class="btn-copy" onclick="copyText('srv-ip')">コピー</button>
+                </div>
+                <div class="ip-box">
+                    <span>Port: <strong id="srv-port">19132</strong></span>
+                    <button class="btn-copy" onclick="copyText('srv-port')">コピー</button>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
