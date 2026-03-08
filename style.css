@@ -1,140 +1,167 @@
 body{
 
 margin:0;
-
 font-family:'Minecraftia', sans-serif;
-
 color:white;
 
 background-image:url("https://i.imgur.com/8bKQX8C.png");
-
-background-size:128px;
-
-}
-
-
-
-.sidebar{
-
-position:fixed;
-
-width:220px;
-
-height:100%;
-
-background:#2a2a2a;
-
-padding:20px;
-
-box-shadow:4px 0px 10px black;
+background-size:120px;
 
 }
 
 
+header{
 
-.sidebar h2{
+display:flex;
+justify-content:space-between;
+align-items:center;
 
+background:#1b1b1b;
+padding:20px 60px;
+
+box-shadow:0 4px 20px black;
+
+}
+
+
+.logo{
+
+font-size:28px;
 color:#7CFC00;
 
 }
 
 
+nav a{
 
-.menu{
-
-display:block;
-
-margin-top:10px;
-
-padding:10px;
-
-background:#3c8527;
-
+margin-left:20px;
 color:white;
-
 text-decoration:none;
-
-border:3px solid #2b5e1c;
 
 transition:0.2s;
 
 }
 
 
+nav a:hover{
 
-.menu:hover{
-
-background:#4CAF50;
-
-transform:scale(1.05);
+color:#7CFC00;
 
 }
 
 
-
-.discord{
-
-display:block;
-
-margin-top:20px;
-
-padding:12px;
+.discord-btn{
 
 background:#5865F2;
+padding:8px 14px;
+border-radius:6px;
+
+}
+
+
+.hero{
 
 text-align:center;
 
+padding:140px 20px;
+
+background:linear-gradient(
+rgba(0,0,0,0.6),
+rgba(0,0,0,0.9)
+);
+
+}
+
+
+.hero h1{
+
+font-size:48px;
+
+}
+
+
+.join-btn{
+
+margin-top:20px;
+
+padding:16px 30px;
+
+font-size:18px;
+
+background:#3c8527;
+
+border:4px solid #2b5e1c;
+
 color:white;
 
-text-decoration:none;
+cursor:pointer;
 
-border:3px solid #3c45a5;
-
-}
-
-
-
-.content{
-
-margin-left:260px;
-
-padding:40px;
+transition:0.2s;
 
 }
 
 
+.join-btn:hover{
 
-.serverbox{
-
-background:rgba(0,0,0,0.7);
-
-padding:20px;
-
-border:3px solid #444;
-
-width:400px;
-
-animation:fadeIn 1s;
+transform:scale(1.1);
+background:#4CAF50;
 
 }
 
 
-
-.ipbox{
+.info{
 
 display:flex;
 
-gap:10px;
+justify-content:center;
+
+gap:40px;
+
+padding:80px 20px;
 
 }
 
+
+.card{
+
+background:rgba(0,0,0,0.7);
+
+padding:30px;
+
+border:3px solid #444;
+
+width:250px;
+
+text-align:center;
+
+transition:0.3s;
+
+}
+
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+
+.ip-box{
+
+display:flex;
+
+justify-content:center;
+
+gap:10px;
+
+margin-top:10px;
+
+}
 
 
 button{
 
-font-family:'Minecraftia', sans-serif;
-
-padding:8px 14px;
+font-family:'Minecraftia';
 
 background:#3c8527;
 
@@ -144,36 +171,32 @@ color:white;
 
 cursor:pointer;
 
-}
-
-
-
-button:hover{
-
-background:#4CAF50;
-
-transform:scale(1.1);
+padding:6px 10px;
 
 }
 
 
+.about{
 
-@keyframes fadeIn{
+text-align:center;
 
-from{
+max-width:900px;
 
-opacity:0;
+margin:auto;
 
-transform:translateY(20px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
+padding:60px 20px;
 
 }
+
+
+footer{
+
+text-align:center;
+
+background:#111;
+
+padding:20px;
+
+margin-top:60px;
 
 }
