@@ -1,10 +1,9 @@
-function copyIP() {
+function copyIP(){
 
-const ip = document.getElementById("ip").innerText;
+navigator.clipboard.writeText("05.jpn.gg");
 
-navigator.clipboard.writeText(ip);
+alert("IPをコピーしました");
 
-alert("IPをコピーしました！");
 }
 
 
@@ -22,15 +21,11 @@ if(data.players){
 document.getElementById("players").innerText =
 data.players.online + " / " + data.players.max;
 
-}else{
-
-document.getElementById("players").innerText = "取得できません";
-
 }
 
 }catch{
 
-document.getElementById("players").innerText = "オフライン";
+document.getElementById("players").innerText="取得できません";
 
 }
 
