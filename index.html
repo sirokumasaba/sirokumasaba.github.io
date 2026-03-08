@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 - ホーム</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>しろくま鯖</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+
 </head>
+
 <body>
-    <nav id="sidebar">
-        <div class="sidebar-title">🐾 しろくま鯖</div>
-        <ul class="nav-links">
-            <li><a href="index.html">ホーム</a></li>
-            <li><a href="rules.html">ルール</a></li>
-            <li><a href="info.html">仕様・管理</a></li>
-            <li><a href="https://discord.gg/YOUR_LINK" target="_blank" style="background:#5865F2;">Discordへ参加</a></li>
-        </ul>
-    </nav>
 
-    <main>
-        <h1 class="hero-title">Welcome to Shirokuma Server!</h1>
-        <div class="mc-container">
-            <h2>❄️ サーバーに参加する</h2>
-            <p>以下の情報をマイクラの「サーバー追加」に入力してください。</p>
-            
-            <div class="ip-card">
-                <div>
-                    <span style="color:white;">アドレス: </span>
-                    <span id="ip" class="ip-text">shirokuma.agames.jp</span>
-                </div>
-                <button class="copy-btn" onclick="copy('ip')">コピー</button>
-            </div>
+<div class="sidebar">
 
-            <div class="ip-card">
-                <div>
-                    <span style="color:white;">ポート: </span>
-                    <span id="port" class="ip-text">19132</span>
-                </div>
-                <button class="copy-btn" onclick="copy('port')">コピー</button>
-            </div>
-            
-            <p style="margin-top:30px;">
-                しろくま鯖は、氷のようにクールで、雪のように温かいコミュニティを目指しています。
-                誰でも気軽に参加して、サバイバル生活を楽しんでください！
-            </p>
-        </div>
-    </main>
+<h2>しろくま鯖</h2>
 
-    <script>
-        function copy(id) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert("コピー完了！: " + text);
-            });
-        }
-    </script>
+<a class="menu" href="index.html">トップ</a>
+<a class="menu" href="rules.html">ルール</a>
+<a class="menu" href="guide.html">初心者ガイド</a>
+<a class="menu" href="spec.html">サーバー仕様</a>
+
+<a class="discord" href="https://discord.gg/E9geQyZjS8">Discord参加</a>
+
+</div>
+
+<div class="content">
+
+<h1>しろくま鯖</h1>
+
+<p>
+しろくま鯖は、誰でも気軽に参加できる公開型のMinecraft統合版サーバーです。
+のんびり建築したり、資源を集めたり、他のプレイヤーと協力して街を発展させたりと、
+自由にサバイバルを楽しめる環境を目指しています。
+</p>
+
+<div class="serverbox">
+
+<h2>サーバー情報</h2>
+
+<p>IP</p>
+
+<div class="ipbox">
+<span id="ip">05.jpn.gg</span>
+<button onclick="copyIP()">コピー</button>
+</div>
+
+<p>ポート</p>
+<p>10274</p>
+
+<p>現在のプレイヤー</p>
+<p id="players">読み込み中...</p>
+
+</div>
+
+</div>
+
+<script src="js/script.js"></script>
+
 </body>
 </html>
