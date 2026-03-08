@@ -12,49 +12,102 @@
 
 <body>
 
-<div class="sidebar">
+<header>
 
-<h2>しろくま鯖</h2>
-
-<a class="menu" href="index.html">トップ</a>
-<a class="menu" href="rules.html">ルール</a>
-<a class="menu" href="guide.html">初心者ガイド</a>
-<a class="menu" href="spec.html">サーバー仕様</a>
-
-<a class="discord" href="https://discord.gg/E9geQyZjS8">Discord参加</a>
-
+<div class="logo">
+しろくま鯖
 </div>
 
-<div class="content">
+<nav>
 
-<h1>しろくま鯖</h1>
+<a href="index.html">トップ</a>
+<a href="rules.html">ルール</a>
+<a href="guide.html">初心者ガイド</a>
+<a href="spec.html">サーバー仕様</a>
+
+<a class="discord-btn" href="https://discord.gg/E9geQyZjS8">Discord</a>
+
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<h1>Minecraft Bedrock Server</h1>
 
 <p>
-しろくま鯖は、誰でも気軽に参加できる公開型のMinecraft統合版サーバーです。
-のんびり建築したり、資源を集めたり、他のプレイヤーと協力して街を発展させたりと、
-自由にサバイバルを楽しめる環境を目指しています。
+誰でも参加できる公開サバイバルサーバー
 </p>
 
-<div class="serverbox">
+<button onclick="copyIP()" class="join-btn">
+IPをコピーして参加
+</button>
 
-<h2>サーバー情報</h2>
+</section>
 
-<p>IP</p>
 
-<div class="ipbox">
+<section class="info">
+
+<div class="card">
+
+<h2>サーバーIP</h2>
+
+<div class="ip-box">
 <span id="ip">05.jpn.gg</span>
 <button onclick="copyIP()">コピー</button>
 </div>
 
-<p>ポート</p>
+</div>
+
+
+<div class="card">
+
+<h2>ポート</h2>
+
 <p>10274</p>
 
-<p>現在のプレイヤー</p>
+</div>
+
+
+<div class="card">
+
+<h2>プレイヤー</h2>
+
 <p id="players">読み込み中...</p>
 
 </div>
 
-</div>
+</section>
+
+
+<section class="about">
+
+<h2>サーバー概要</h2>
+
+<p>
+
+しろくま鯖は、誰でも気軽に参加できる公開型のMinecraft統合版サーバーです。
+
+のんびり建築したり、資源を集めたり、他のプレイヤーと協力して街を発展させたりと、
+自由にサバイバルを楽しめる環境を目指しています。
+
+荒らし対策やチャンク保護などのアドオンを導入しており、
+安心して建築や活動ができるようにしています。
+
+初心者から経験者まで歓迎しています。
+
+</p>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 しろくま鯖</p>
+
+</footer>
+
 
 <script src="js/script.js"></script>
 
