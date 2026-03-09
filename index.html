@@ -1,115 +1,606 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>しろくま鯖</title>
-
-<link rel="stylesheet" href="css/style.css">
-
-<link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>しろくま鯖 | Minecraft Bedrock Server</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-<header>
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">✔ コピーしました！</div>
 
-<div class="logo">
-しろくま鯖
-</div>
+  <!-- MOBILE OVERLAY -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-<nav>
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-inner">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="logo" href="#" onclick="showPage('home');return false;">
+        <div class="logo-icon">🐻‍❄️</div>
+        <div class="logo-text">
+          <span class="logo-main">しろくま鯖</span>
+          <span class="logo-sub">MINECRAFT BEDROCK SERVER</span>
+        </div>
+      </a>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span class="status-label">24時間稼働中</span>
+      </div>
+    </div>
+    <!-- Grass border -->
+    <div class="header-grass"></div>
+  </header>
 
-<a href="index.html">トップ</a>
-<a href="rules.html">ルール</a>
-<a href="guide.html">初心者ガイド</a>
-<a href="spec.html">サーバー仕様</a>
+  <!-- ===== SIDEBAR ===== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-bear">🐻‍❄️</div>
+      <div class="sidebar-server-name">しろくま鯖</div>
+    </div>
 
-<a class="discord-btn" href="https://discord.gg/E9geQyZjS8">Discord</a>
+    <div class="sidebar-grass"></div>
 
-</nav>
+    <div class="nav-group">
+      <div class="nav-group-label">MENU</div>
+      <a class="nav-item active" data-page="home" onclick="showPage('home');return false;" href="#">
+        <span class="nav-icon">🏠</span><span>ホーム</span>
+      </a>
+      <a class="nav-item" data-page="join" onclick="showPage('join');return false;" href="#">
+        <span class="nav-icon">🚪</span><span>参加方法</span>
+      </a>
+      <a class="nav-item" data-page="rules" onclick="showPage('rules');return false;" href="#">
+        <span class="nav-icon">📜</span><span>ルール</span>
+      </a>
+      <a class="nav-item" data-page="spec" onclick="showPage('spec');return false;" href="#">
+        <span class="nav-icon">⚙️</span><span>サーバー仕様</span>
+      </a>
+      <a class="nav-item" data-page="discord" onclick="showPage('discord');return false;" href="#">
+        <span class="nav-icon">💬</span><span>Discord</span>
+      </a>
+      <a class="nav-item" data-page="admin" onclick="showPage('admin');return false;" href="#">
+        <span class="nav-icon">👑</span><span>管理者</span>
+      </a>
+    </div>
 
-</header>
+    <div class="sidebar-grass"></div>
 
+    <div class="sidebar-ip-box">
+      <div class="sidebar-ip-label">⚡ サーバーIP</div>
+      <div class="sidebar-ip-row">
+        <span class="sidebar-ip-key">IP</span>
+        <span class="sidebar-ip-val">05.jpn.gg</span>
+        <button class="sidebar-copy-btn" onclick="copyText('05.jpn.gg')">📋</button>
+      </div>
+      <div class="sidebar-ip-row">
+        <span class="sidebar-ip-key">PORT</span>
+        <span class="sidebar-ip-val">10274</span>
+        <button class="sidebar-copy-btn" onclick="copyText('10274')">📋</button>
+      </div>
+    </div>
+  </nav>
 
-<section class="hero">
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" id="main">
 
-<h1>Minecraft Bedrock Server</h1>
+    <!-- ==================== HOME ==================== -->
+    <section class="page active" id="page-home">
 
-<p>
-誰でも参加できる公開サバイバルサーバー
-</p>
+      <div class="ticker-wrap">
+        <div class="ticker-inner">
+          ⛏ しろくま鯖へようこそ！ &nbsp;❄️ 24時間稼働中 &nbsp;🐻‍❄️ IP: 05.jpn.gg &nbsp;🔌 PORT: 10274 &nbsp;✨ 初心者歓迎！誰でも参加OK &nbsp;💬 Discordも参加してね！ &nbsp;⛏ しろくま鯖へようこそ！ &nbsp;❄️ 24時間稼働中 &nbsp;🐻‍❄️ IP: 05.jpn.gg &nbsp;🔌 PORT: 10274 &nbsp;✨ 初心者歓迎！誰でも参加OK &nbsp;💬 Discordも参加してね！ &nbsp;
+        </div>
+      </div>
 
-<button onclick="copyIP()" class="join-btn">
-IPをコピーして参加
-</button>
+      <!-- HERO -->
+      <div class="hero reveal">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-content">
+          <div class="hero-bear">🐻‍❄️</div>
+          <h1 class="hero-title">しろくま鯖</h1>
+          <p class="hero-edition">MINECRAFT BEDROCK EDITION</p>
+          <p class="hero-desc">誰でも気軽に参加できる<br>公開サバイバルサーバー</p>
 
-</section>
+          <div class="hero-ip-card">
+            <div class="hero-ip-label">🌐 サーバーに接続する</div>
+            <div class="hero-ip-row">
+              <div class="ip-field">
+                <label class="ip-field-label">IP アドレス</label>
+                <div class="ip-field-row">
+                  <span class="ip-field-value">05.jpn.gg</span>
+                  <button class="mc-btn mc-btn-green" onclick="copyText('05.jpn.gg', this)">📋 コピー</button>
+                </div>
+              </div>
+              <div class="ip-divider">:</div>
+              <div class="ip-field">
+                <label class="ip-field-label">ポート番号</label>
+                <div class="ip-field-row">
+                  <span class="ip-field-value">10274</span>
+                  <button class="mc-btn mc-btn-green" onclick="copyText('10274', this)">📋 コピー</button>
+                </div>
+              </div>
+            </div>
+            <button class="mc-btn mc-btn-blue full-copy-btn" onclick="copyText('05.jpn.gg:10274', this)">
+              🔗 IP + PORT をまとめてコピー
+            </button>
+          </div>
+        </div>
+        <div class="hero-bottom-grass"></div>
+      </div>
 
+      <!-- STATS -->
+      <div class="stats-grid reveal delay-1">
+        <div class="stat-card">
+          <div class="stat-icon">🎮</div>
+          <div class="stat-value">Bedrock</div>
+          <div class="stat-label">統合版対応</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚔️</div>
+          <div class="stat-value">サバイバル</div>
+          <div class="stat-label">ゲームモード</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌙</div>
+          <div class="stat-value">24時間</div>
+          <div class="stat-label">稼働中</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">😊</div>
+          <div class="stat-value">ノーマル</div>
+          <div class="stat-label">難易度</div>
+        </div>
+      </div>
 
-<section class="info">
+      <!-- ABOUT -->
+      <div class="mc-panel reveal delay-2">
+        <h2 class="panel-title"><span class="panel-title-icon">❄️</span>しろくま鯖について</h2>
+        <div class="about-text">
+          <p>
+            しろくま鯖は、誰でも気軽に参加できる
+            <strong>Minecraft Bedrock Edition（統合版）</strong>の公開サバイバルサーバーです。
+          </p>
+          <p>
+            <strong>建築・探索・資源集め・街づくり</strong>など、Minecraftのサバイバルを自由に楽しむことができます。
+            のんびり拠点を作ったり、遠くまで冒険したり、
+            他のプレイヤーと協力して街を作ったりと、それぞれのスタイルで遊べる環境を目指しています。
+          </p>
+        </div>
 
-<div class="card">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🏰</div>
+            <div class="feature-name">建築</div>
+            <div class="feature-desc">自由に建築を楽しめます</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🗺️</div>
+            <div class="feature-name">探索</div>
+            <div class="feature-desc">広大なワールドを冒険</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⛏️</div>
+            <div class="feature-name">資源集め</div>
+            <div class="feature-desc">素材を集めてクラフト</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏙️</div>
+            <div class="feature-name">街づくり</div>
+            <div class="feature-desc">みんなで街を発展させよう</div>
+          </div>
+        </div>
+      </div>
 
-<h2>サーバーIP</h2>
+      <!-- 24h & BEGINNER FRIENDLY -->
+      <div class="two-col reveal delay-3">
+        <div class="mc-panel">
+          <h2 class="panel-title"><span class="panel-title-icon">🌙</span>24時間稼働</h2>
+          <p class="panel-text">しろくま鯖は<strong>24時間稼働サーバー</strong>です。いつでも好きな時間に参加できます。</p>
+          <ul class="check-list">
+            <li>夜しか遊べない人も安心</li>
+            <li>休日にまとめてプレイ</li>
+            <li>空いた時間にちょっとだけ</li>
+          </ul>
+        </div>
+        <div class="mc-panel">
+          <h2 class="panel-title"><span class="panel-title-icon">🛡️</span>初心者でも安心</h2>
+          <p class="panel-text"><strong>荒らし対策・土地保護</strong>アドオンを導入。初めての方でも安心してプレイできます。</p>
+          <ul class="check-list">
+            <li>建築が壊される心配が少ない</li>
+            <li>初心者でも安心</li>
+            <li>のんびりサバイバルができる</li>
+          </ul>
+        </div>
+      </div>
 
-<div class="ip-box">
-<span id="ip">05.jpn.gg</span>
-<button onclick="copyIP()">コピー</button>
-</div>
+      <!-- CTA -->
+      <div class="cta-banner reveal delay-4">
+        <p class="cta-text">🐻‍❄️ 現在プレイヤー募集中！初心者から経験者まで誰でも歓迎！</p>
+        <div class="cta-buttons">
+          <button class="mc-btn mc-btn-green mc-btn-lg" onclick="showPage('join')">🚪 参加方法を見る</button>
+          <a class="mc-btn mc-btn-discord mc-btn-lg" href="https://discord.gg/E9geQyZjS8" target="_blank">💬 Discord に参加する</a>
+        </div>
+      </div>
 
-</div>
+    </section>
 
+    <!-- ==================== JOIN ==================== -->
+    <section class="page" id="page-join">
+      <div class="page-header reveal">
+        <h1 class="page-title">🚪 参加方法</h1>
+        <p class="page-subtitle">Minecraft統合版からしろくま鯖に接続する手順</p>
+      </div>
 
-<div class="card">
+      <div class="notice-box reveal">
+        <span class="notice-icon">⚠️</span>
+        このサーバーは <strong>Minecraft 統合版（Bedrock Edition）</strong> 専用です。Java版では接続できません。
+      </div>
 
-<h2>ポート</h2>
+      <div class="steps reveal delay-1">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3 class="step-title">Minecraft Bedrock Editionを起動</h3>
+            <p class="step-desc">スマホ・タブレット・PC・Switch・PS・Xboxなど統合版対応デバイスで起動してください。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3 class="step-title">「サーバー」→「サーバー追加」を選択</h3>
+            <p class="step-desc">メインメニューの「プレイ」→上部タブ「サーバー」→「サーバーを追加」をタップ</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3 class="step-title">以下の情報を入力する</h3>
+            <div class="step-ip-table">
+              <div class="step-ip-row">
+                <span class="step-ip-label">サーバー名</span>
+                <span class="step-ip-value">しろくま鯖</span>
+                <button class="mc-btn mc-btn-green mc-btn-sm" onclick="copyText('しろくま鯖', this)">📋</button>
+              </div>
+              <div class="step-ip-row">
+                <span class="step-ip-label">サーバーIP</span>
+                <span class="step-ip-value">05.jpn.gg</span>
+                <button class="mc-btn mc-btn-green mc-btn-sm" onclick="copyText('05.jpn.gg', this)">📋 コピー</button>
+              </div>
+              <div class="step-ip-row">
+                <span class="step-ip-label">ポート番号</span>
+                <span class="step-ip-value">10274</span>
+                <button class="mc-btn mc-btn-green mc-btn-sm" onclick="copyText('10274', this)">📋 コピー</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3 class="step-title">保存して参加！</h3>
+            <p class="step-desc">「保存して参加」ボタンを押してしろくま鯖に接続！<br>困ったことは <a href="https://discord.gg/E9geQyZjS8" target="_blank" class="text-link">Discord</a> で気軽に聞いてください 🐻‍❄️</p>
+          </div>
+        </div>
+      </div>
 
-<p>10274</p>
+      <div class="mc-panel reveal delay-2">
+        <h2 class="panel-title"><span class="panel-title-icon">📋</span>サーバー情報まとめ</h2>
+        <div class="info-table">
+          <div class="info-row">
+            <span class="info-key">IPアドレス</span>
+            <span class="info-val">05.jpn.gg</span>
+            <button class="mc-btn mc-btn-green mc-btn-sm" onclick="copyText('05.jpn.gg', this)">📋 コピー</button>
+          </div>
+          <div class="info-row">
+            <span class="info-key">ポート番号</span>
+            <span class="info-val">10274</span>
+            <button class="mc-btn mc-btn-green mc-btn-sm" onclick="copyText('10274', this)">📋 コピー</button>
+          </div>
+          <div class="info-row">
+            <span class="info-key">エディション</span>
+            <span class="info-val">Bedrock（統合版）</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">ゲームモード</span>
+            <span class="info-val">サバイバル</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">難易度</span>
+            <span class="info-val">ノーマル</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">稼働時間</span>
+            <span class="info-val">24時間稼働</span>
+          </div>
+        </div>
+        <button class="mc-btn mc-btn-blue full-copy-btn" onclick="copyText('05.jpn.gg:10274', this)">
+          🔗 IP + PORT をまとめてコピー
+        </button>
+      </div>
+    </section>
 
-</div>
+    <!-- ==================== RULES ==================== -->
+    <section class="page" id="page-rules">
+      <div class="page-header reveal">
+        <h1 class="page-title">📜 サーバールール</h1>
+        <p class="page-subtitle">楽しいサーバーのためにルールを守ってください</p>
+      </div>
 
+      <div class="notice-box notice-danger reveal">
+        <span class="notice-icon">🚨</span>
+        ルールを守らない場合、<strong>警告なしにBANされる</strong>場合があります。必ずお読みください。
+      </div>
 
-<div class="card">
+      <div class="rules-list reveal delay-1">
 
-<h2>プレイヤー</h2>
+        <div class="rule-card rule-danger">
+          <div class="rule-badge danger">禁止</div>
+          <div class="rule-icon-big">🚫</div>
+          <div class="rule-body">
+            <h3 class="rule-title">荒らし行為の禁止</h3>
+            <p class="rule-desc">他人の建築物を壊す、チェストを無断で開けるなどの荒らし行為は禁止です。</p>
+          </div>
+        </div>
 
-<p id="players">読み込み中...</p>
+        <div class="rule-card rule-danger">
+          <div class="rule-badge danger">禁止</div>
+          <div class="rule-icon-big">💻</div>
+          <div class="rule-body">
+            <h3 class="rule-title">チート・不正ツールの禁止</h3>
+            <p class="rule-desc">Xray、飛行チート、チートクライアント、プロキシなどの使用は禁止です。</p>
+          </div>
+        </div>
 
-</div>
+        <div class="rule-card rule-warn">
+          <div class="rule-badge warn">注意</div>
+          <div class="rule-icon-big">💬</div>
+          <div class="rule-body">
+            <h3 class="rule-title">迷惑行為の禁止</h3>
+            <p class="rule-desc">スパム、暴言、誹謗中傷など他プレイヤーが不快になる行為は禁止です。</p>
+          </div>
+        </div>
 
-</section>
+        <div class="rule-card rule-warn">
+          <div class="rule-badge warn">注意</div>
+          <div class="rule-icon-big">⚡</div>
+          <div class="rule-body">
+            <h3 class="rule-title">サーバーに負荷をかける行為の禁止</h3>
+            <p class="rule-desc">ラグマシン、大量エンティティ、過度な装置などは禁止です。</p>
+          </div>
+        </div>
 
+        <div class="rule-card rule-warn">
+          <div class="rule-badge warn">注意</div>
+          <div class="rule-icon-big">🏗️</div>
+          <div class="rule-body">
+            <h3 class="rule-title">迷惑建築の禁止</h3>
+            <p class="rule-desc">スポーン地点付近の無断建築や他プレイヤーの土地に近すぎる建築は禁止です。</p>
+          </div>
+        </div>
 
-<section class="about">
+        <div class="rule-card rule-warn">
+          <div class="rule-badge warn">注意</div>
+          <div class="rule-icon-big">🐛</div>
+          <div class="rule-body">
+            <h3 class="rule-title">不具合の悪用禁止</h3>
+            <p class="rule-desc">バグや仕様の抜け道を利用して有利になる行為は禁止です。</p>
+          </div>
+        </div>
 
-<h2>サーバー概要</h2>
+        <div class="rule-card rule-info">
+          <div class="rule-badge info">必須</div>
+          <div class="rule-icon-big">👑</div>
+          <div class="rule-body">
+            <h3 class="rule-title">管理者の指示には従う</h3>
+            <p class="rule-desc">サーバー運営の判断には従ってください。不明な点はDiscordでお聞きください。</p>
+          </div>
+        </div>
 
-<p>
+      </div>
+    </section>
 
-しろくま鯖は、誰でも気軽に参加できる公開型のMinecraft統合版サーバーです。
+    <!-- ==================== SPEC ==================== -->
+    <section class="page" id="page-spec">
+      <div class="page-header reveal">
+        <h1 class="page-title">⚙️ サーバー仕様</h1>
+        <p class="page-subtitle">導入アドオン・コマンド・サーバー設定</p>
+      </div>
 
-のんびり建築したり、資源を集めたり、他のプレイヤーと協力して街を発展させたりと、
-自由にサバイバルを楽しめる環境を目指しています。
+      <!-- Basic Spec -->
+      <div class="mc-panel reveal delay-1">
+        <h2 class="panel-title"><span class="panel-title-icon">🖥️</span>基本仕様</h2>
+        <div class="info-table">
+          <div class="info-row">
+            <span class="info-key">ホスティング</span>
+            <span class="info-val">Agames レンタルサーバー</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">エディション</span>
+            <span class="info-val">Minecraft Bedrock Edition（統合版）</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">ゲームモード</span>
+            <span class="info-val">サバイバル</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">難易度</span>
+            <span class="info-val">ノーマル</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">稼働時間</span>
+            <span class="info-val">24時間稼働</span>
+          </div>
+        </div>
+      </div>
 
-荒らし対策やチャンク保護などのアドオンを導入しており、
-安心して建築や活動ができるようにしています。
+      <!-- ADDONS -->
+      <div class="mc-panel reveal delay-2">
+        <h2 class="panel-title"><span class="panel-title-icon">🧩</span>導入アドオン</h2>
 
-初心者から経験者まで歓迎しています。
+        <div class="addon-grid">
 
-</p>
+          <div class="addon-card">
+            <div class="addon-header">
+              <span class="addon-icon">🛡️</span>
+              <div>
+                <div class="addon-name">土地保護システム</div>
+                <span class="tag tag-green">保護</span>
+              </div>
+            </div>
+            <p class="addon-desc">チャンク保護アドオンを導入しています。自分の土地を保護できます。保護された土地では建築の破壊・チェストの無断開封などが防止されます。</p>
+            <a class="addon-link" href="https://minecraft-mcworld.com/60639/" target="_blank">📖 使い方を見る →</a>
+          </div>
 
-</section>
+          <div class="addon-card">
+            <div class="addon-header">
+              <span class="addon-icon">🔍</span>
+              <div>
+                <div class="addon-name">荒らし対策</div>
+                <span class="tag tag-red">安全</span>
+              </div>
+            </div>
+            <p class="addon-desc">荒らし対策アドオンを導入しています。不審な行動や荒らし行為を検知し、サーバーの安全性を高めています。</p>
+            <a class="addon-link" href="https://minecraft-mcworld.com/144818/" target="_blank">📖 使い方を見る →</a>
+          </div>
 
+          <div class="addon-card">
+            <div class="addon-header">
+              <span class="addon-icon">🪦</span>
+              <div>
+                <div class="addon-name">墓石システム</div>
+                <span class="tag tag-blue">便利</span>
+              </div>
+            </div>
+            <p class="addon-desc">プレイヤーが死亡した際に墓石が生成されます。死亡時のアイテムは墓石に保存されるため初心者でも安心して冒険できます。</p>
+            <a class="addon-link" href="https://minecraft-mcworld.com/203725/" target="_blank">📖 使い方を見る →</a>
+          </div>
 
-<footer>
+          <div class="addon-card">
+            <div class="addon-header">
+              <span class="addon-icon">🪓</span>
+              <div>
+                <div class="addon-name">木こりアドオン</div>
+                <span class="tag tag-blue">便利</span>
+              </div>
+            </div>
+            <p class="addon-desc">木を切るとまとめて伐採できます。建築素材集めが格段に快適になります。</p>
+            <a class="addon-link" href="https://minecraft-mcworld.com/37207/" target="_blank">📖 使い方を見る →</a>
+          </div>
 
-<p>© 2026 しろくま鯖</p>
+          <div class="addon-card">
+            <div class="addon-header">
+              <span class="addon-icon">📐</span>
+              <div>
+                <div class="addon-name">チャンク境界表示</div>
+                <span class="tag tag-yellow">建築</span>
+              </div>
+            </div>
+            <p class="addon-desc">チャンク境界を表示できます。装置作りや建築計画に非常に便利です。</p>
+            <a class="addon-link" href="https://minecraft-yutakura.com/chunk-borders/" target="_blank">📖 使い方を見る →</a>
+          </div>
 
-</footer>
+        </div>
+      </div>
 
+    </section>
 
-<script src="js/script.js"></script>
+    <!-- ==================== DISCORD ==================== -->
+    <section class="page" id="page-discord">
+      <div class="page-header reveal">
+        <h1 class="page-title">💬 Discord</h1>
+        <p class="page-subtitle">コミュニティに参加して一緒に楽しもう！</p>
+      </div>
 
+      <div class="discord-hero reveal delay-1">
+        <div class="discord-logo">💬</div>
+        <h2 class="discord-title">しろくま鯖 Discord</h2>
+        <p class="discord-desc">
+          サーバーの最新情報・告知・雑談はDiscordで行っています。<br>
+          参加報告や困ったことの相談もDiscordへどうぞ！
+        </p>
+        <a class="mc-btn mc-btn-discord mc-btn-xl" href="https://discord.gg/E9geQyZjS8" target="_blank">
+          💬 Discordサーバーに参加する
+        </a>
+        <p class="discord-url">discord.gg/E9geQyZjS8</p>
+      </div>
+
+      <div class="discord-features reveal delay-2">
+        <div class="discord-feat">
+          <div class="discord-feat-icon">📢</div>
+          <div class="discord-feat-name">サーバー告知</div>
+          <div class="discord-feat-desc">メンテナンスや更新情報をいち早くお届け</div>
+        </div>
+        <div class="discord-feat">
+          <div class="discord-feat-icon">🤝</div>
+          <div class="discord-feat-name">プレイヤー交流</div>
+          <div class="discord-feat-desc">他のプレイヤーとチャット・雑談</div>
+        </div>
+        <div class="discord-feat">
+          <div class="discord-feat-icon">🛠️</div>
+          <div class="discord-feat-name">サポート</div>
+          <div class="discord-feat-desc">困ったことは管理者に相談できます</div>
+        </div>
+        <div class="discord-feat">
+          <div class="discord-feat-icon">🚨</div>
+          <div class="discord-feat-name">荒らし報告</div>
+          <div class="discord-feat-desc">不正行為を管理者に報告できます</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ADMIN ==================== -->
+    <section class="page" id="page-admin">
+      <div class="page-header reveal">
+        <h1 class="page-title">👑 管理者</h1>
+        <p class="page-subtitle">しろくま鯖の運営メンバー</p>
+      </div>
+
+      <div class="admin-card reveal delay-1">
+        <div class="admin-avatar">🐻‍❄️</div>
+        <div class="admin-info">
+          <div class="admin-name">しろくま</div>
+          <div class="admin-badges">
+            <span class="tag tag-gold">👑 OWNER</span>
+            <span class="tag tag-red">🔧 ADMIN</span>
+          </div>
+          <div class="admin-role">サーバー運営 / 管理</div>
+          <p class="admin-desc">
+            しろくま鯖の設立者・オーナーです。サーバーの管理・アドオン導入・ルール策定などを担当しています。
+            連絡はDiscordまでお願いします。
+          </p>
+        </div>
+      </div>
+
+      <div class="mc-panel reveal delay-2">
+        <h2 class="panel-title"><span class="panel-title-icon">📩</span>管理者へのお問い合わせ</h2>
+        <p class="panel-text">
+          管理者への連絡は<strong>Discord</strong>を通じてお願いします。<br>
+          グリーフ報告・バグ報告・質問・モデレーター応募なども Discordで受け付けています。
+        </p>
+        <a class="mc-btn mc-btn-discord mc-btn-lg" href="https://discord.gg/E9geQyZjS8" target="_blank" style="margin-top:16px;display:inline-flex;">
+          💬 Discordで連絡する
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grass"></div>
+    <div class="footer-inner">
+      <span>🐻‍❄️ しろくま鯖</span>
+      <span>Minecraft Bedrock Edition Server</span>
+      <a href="https://discord.gg/E9geQyZjS8" target="_blank" class="text-link">Discord</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
