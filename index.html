@@ -3,46 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 - 公式ホームページ</title>
+    <title>しろくま鯖 | Minecraft統合版サバイバル</title>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- CSS: マイクラの世界観を再現 --- */
         :root {
             --mc-green: #55FF55;
-            --mc-dark-grey: #313131;
-            --mc-panel: rgba(0, 0, 0, 0.75);
-            --mc-border-light: #ffffff;
-            --mc-border-dark: #000000;
-            --mc-button: #8b8b8b;
-            --mc-button-hover: #5a8aed;
+            --mc-gold: #FFAA00;
+            --mc-grey: #AAAAAA;
+            --mc-bg-dark: #1e1e1e;
+            --mc-panel-bg: #C6C6C6; /* インベントリの色 */
+            --mc-button-bg: #8B8B8B;
+            --mc-border-light: #FFFFFF;
+            --mc-border-dark: #555555;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            cursor: url('https://cur.cursors-4u.net/games/gam-4/gam388.cur'), auto; /* マイクラ風カーソル（任意） */
         }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #1e1e1e;
-            /* 背景画像にマイクラのスクリーンショット等を使うとさらに良くなります */
-            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
-            color: #ffffff;
-            line-height: 1.6;
+            background-color: #313131;
+            /* 背景にマイクラの土ブロック風テクスチャ（パターン） */
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            color: #eee;
             display: flex;
             min-height: 100vh;
-            flex-direction: row;
         }
 
-        /* --- サイドバー --- */
+        /* --- サイドバーナビゲーション --- */
         nav {
-            width: 250px;
-            background: var(--mc-dark-grey);
-            border-right: 4px solid var(--mc-border-dark);
-            padding: 20px;
+            width: 280px;
+            background: #111;
+            border-right: 6px solid #000;
+            padding: 30px 15px;
             position: fixed;
-            height: 100%;
+            height: 100vh;
             overflow-y: auto;
+            z-index: 100;
         }
 
         nav h1 {
@@ -50,130 +52,148 @@
             color: var(--mc-green);
             font-size: 1.8rem;
             text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px #000;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px #000;
         }
 
-        nav ul {
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-bottom: 10px;
-        }
-
-        nav ul li a {
+        nav ul { list-style: none; }
+        
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: var(--mc-button-bg);
+            border: 4px solid;
+            border-color: var(--mc-border-light) var(--mc-border-dark) var(--mc-border-dark) var(--mc-border-light);
             color: #fff;
             text-decoration: none;
-            display: block;
-            padding: 10px;
-            background: var(--mc-button);
-            border: 3px solid;
-            border-color: #bdbdbd #5d5d5d #5d5d5d #bdbdbd;
             text-align: center;
             font-weight: bold;
-            transition: 0.1s;
+            font-family: 'DotGothic16', sans-serif;
+            text-shadow: 2px 2px #333;
+            transition: all 0.1s;
         }
 
-        nav ul li a:hover {
-            background-color: var(--mc-button-hover);
-            border-color: #7faaff #3d5a9e #3d5a9e #7faaff;
+        .nav-item:hover {
+            background-color: #5a8aed;
+            border-color: #83a7ff #2a4a9e #2a4a9e #83a7ff;
         }
 
-        /* --- メインコンテンツ --- */
+        .nav-item:active {
+            border-color: var(--mc-border-dark) var(--mc-border-light) var(--mc-border-light) var(--mc-border-dark);
+            transform: translateY(2px);
+        }
+
+        /* --- メインコンテンツエリア --- */
         main {
-            margin-left: 250px;
+            margin-left: 280px;
             padding: 40px;
-            width: 100%;
-            max-width: 1000px;
+            width: calc(100% - 280px);
+            max-width: 1100px;
         }
 
-        .section-panel {
-            background: var(--mc-panel);
-            border: 4px solid #000;
+        /* マイクラのインベントリ/チェスト風パネル */
+        .mc-panel {
+            background: var(--mc-panel-bg);
+            border: 5px solid #000;
             padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: inset 4px 4px 0px rgba(255,255,255,0.1);
+            margin-bottom: 50px;
+            color: #333; /* 文字は暗め */
+            box-shadow: inset -4px -4px 0px var(--mc-border-dark), 
+                        inset 4px 4px 0px var(--mc-border-light);
         }
 
         h2 {
             font-family: 'DotGothic16', sans-serif;
-            color: var(--mc-green);
-            border-bottom: 2px solid var(--mc-green);
+            font-size: 2rem;
             margin-bottom: 20px;
-            padding-bottom: 5px;
+            color: #000;
+            border-bottom: 3px solid #777;
+            display: inline-block;
         }
 
         h3 {
-            margin-top: 20px;
-            color: #ffcc00;
+            font-family: 'DotGothic16', sans-serif;
+            color: #444;
+            margin: 20px 0 10px;
         }
 
-        p { margin-bottom: 15px; }
+        p { margin-bottom: 15px; font-weight: 500; }
 
-        /* --- サーバー情報 & コピーボタン --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        /* --- IP/Port コピー機能 --- */
+        .server-info-container {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
         }
 
-        .copy-box {
-            background: #222;
-            border: 2px solid #555;
+        .copy-card {
+            background: #333;
+            border: 4px solid #000;
             padding: 15px;
+            flex: 1;
             text-align: center;
-            cursor: pointer;
             position: relative;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .copy-box:hover { background: #333; border-color: var(--mc-green); }
-        .copy-label { font-size: 0.8rem; color: #aaa; display: block; }
-        .copy-value { font-size: 1.2rem; font-weight: bold; color: var(--mc-green); }
+        .copy-card:hover { background: #444; }
+        .copy-card span { display: block; }
+        .label { font-size: 0.8rem; color: var(--mc-grey); }
+        .value { font-size: 1.4rem; color: var(--mc-green); font-weight: bold; font-family: monospace; }
 
-        /* --- ルールリスト --- */
-        .rule-list {
-            list-style: none;
-        }
-        .rule-list li {
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 10px;
+        /* --- ルールセクション --- */
+        .rule-box {
+            background: rgba(0,0,0,0.1);
+            border-left: 6px solid #555;
             padding: 15px;
-            border-left: 5px solid var(--mc-green);
+            margin-bottom: 10px;
         }
-        .rule-number {
-            font-weight: bold;
-            color: var(--mc-green);
-            margin-right: 10px;
-        }
+        .rule-title { font-weight: bold; color: #d32f2f; display: block; margin-bottom: 5px; }
 
-        /* --- ボタン --- */
-        .btn-discord {
+        /* --- アドオンカード --- */
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .addon-card {
+            background: #b0b0b0;
+            border: 3px solid #444;
+            padding: 15px;
+        }
+        .addon-card a {
             display: inline-block;
+            margin-top: 10px;
+            color: #0000AA;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .addon-card a:hover { text-decoration: underline; }
+
+        /* --- Discordボタン --- */
+        .discord-btn {
             background: #5865F2;
             color: white;
-            padding: 15px 30px;
+            text-align: center;
+            padding: 20px;
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-top: 10px;
+            display: block;
+            font-size: 1.5rem;
+            font-family: 'DotGothic16', sans-serif;
+            border: 4px solid #000;
+            margin-top: 20px;
         }
-        .btn-discord:hover { background: #4752c4; }
-
-        /* --- アドオンリンク --- */
-        .addon-link {
-            color: #55ccff;
-            text-decoration: none;
-        }
-        .addon-link:hover { text-decoration: underline; }
+        .discord-btn:hover { background: #4752c4; }
 
         /* スマホ対応 */
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 4px solid #000; }
-            main { margin-left: 0; padding: 20px; }
-            .info-grid { grid-template-columns: 1fr; }
+            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 6px solid #000; }
+            main { margin-left: 0; width: 100%; padding: 20px; }
+            .server-info-container { flex-direction: column; }
         }
     </style>
 </head>
@@ -182,85 +202,114 @@
     <nav>
         <h1>しろくま鯖</h1>
         <ul>
-            <li><a href="#about">概要</a></li>
-            <li><a href="#join">参加方法</a></li>
-            <li><a href="#rules">ルール</a></li>
-            <li><a href="#spec">サーバー仕様</a></li>
-            <li><a href="#discord">Discord</a></li>
-            <li><a href="#admin">管理者</a></li>
+            <li><a href="#home" class="nav-item">トップページ</a></li>
+            <li><a href="#join" class="nav-item">参加方法</a></li>
+            <li><a href="#rules" class="nav-item">サーバー規約</a></li>
+            <li><a href="#addons" class="nav-item">導入アドオン</a></li>
+            <li><a href="#discord" class="nav-item">Discord</a></li>
+            <li><a href="#admin" class="nav-item">管理者情報</a></li>
         </ul>
     </nav>
 
     <main>
-        <section id="about" class="section-panel">
-            <h2>しろくま鯖へようこそ！</h2>
+        <section id="home" class="mc-panel">
+            <h2>しろくま鯖とは？</h2>
             <p>しろくま鯖は、誰でも気軽に参加できる <strong>Minecraft Bedrock Edition（統合版）</strong> の公開サバイバルサーバーです。</p>
-            <p>建築・探索・資源集め・街づくりなど、プレイヤーそれぞれのスタイルで遊べる環境を目指しています。24時間稼働しているので、忙しい方でも好きな時間に楽しめます！</p>
+            <p>建築・探索・資源集め・街づくりなど、Minecraftのサバイバルを自由に楽しむことができます。マルチが初めての方でも安心して遊べる環境づくりに力を入れています。</p>
+            <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 4px;">
+                <p>✅ <strong>24時間稼働:</strong> 好きな時間にいつでもログイン可能！</p>
+                <p>✅ <strong>安心の保護:</strong> 荒らし対策や土地保護アドオンを完備。</p>
+                <p>✅ <strong>快適プレイ:</strong> 木こりアドオンなど便利機能を多数導入。</p>
+            </div>
         </section>
 
-        <section id="join" class="section-panel">
+        <section id="join" class="mc-panel">
             <h2>参加方法</h2>
-            <p>サーバーアドレスとポートを入力して参加してください。クリックでコピーできます。</p>
-            <div class="info-grid">
-                <div class="copy-box" onclick="copyText('05.jpn.gg')">
-                    <span class="copy-label">IPアドレス</span>
-                    <span class="copy-value">05.jpn.gg</span>
+            <p>以下の情報をMinecraftの「サーバーを追加」から入力してください。<strong>項目をクリックするとコピーできます。</strong></p>
+            <div class="server-info-container">
+                <div class="copy-card" onclick="copy('05.jpn.gg')">
+                    <span class="label">サーバーアドレス (IP)</span>
+                    <span class="value" id="ip-val">05.jpn.gg</span>
                 </div>
-                <div class="copy-box" onclick="copyText('10274')">
-                    <span class="copy-label">ポート番号</span>
-                    <span class="copy-value">10274</span>
+                <div class="copy-card" onclick="copy('10274')">
+                    <span class="label">ポート番号 (Port)</span>
+                    <span class="value" id="port-val">10274</span>
                 </div>
             </div>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #ccc;">対応機種：iOS / Android / Windows / Switch等 (統合版のみ)</p>
+            <p>※対応：Minecraft 統合版（Switch, PE, Win10, PS4/5, Xbox）</p>
         </section>
 
-        <section id="rules" class="section-panel">
-            <h2>ルール</h2>
-            <ul class="rule-list">
-                <li><span class="rule-number">1.</span> <strong>荒らし行為の禁止</strong><br>他人の建築物を壊す、チェストを無断で開けるなどの行為は禁止です。</li>
-                <li><span class="rule-number">2.</span> <strong>チート・不正ツールの禁止</strong><br>Xray、飛行チート、プロキシなどの使用は禁止です。</li>
-                <li><span class="rule-number">3.</span> <strong>迷惑行為の禁止</strong><br>スパム、暴言、誹謗中傷など不快になる行為は禁止です。</li>
-                <li><span class="rule-number">4.</span> <strong>負荷をかける行為の禁止</strong><br>ラグマシン、大量エンティティ、過度な装置は禁止です。</li>
-                <li><span class="rule-number">5.</span> <strong>迷惑建築の禁止</strong><br>スポーン地点付近や他人の土地への無断建築は禁止です。</li>
-                <li><span class="rule-number">6.</span> <strong>不具合の悪用禁止</strong><br>バグや仕様の抜け道を利用する行為は禁止です。</li>
-                <li><span class="rule-number">7.</span> <strong>管理者の指示</strong><br>サーバー運営の判断・指示には必ず従ってください。</li>
-            </ul>
+        <section id="rules" class="mc-panel">
+            <h2>ルール（規約）</h2>
+            <div class="rule-box"><span class="rule-title">1. 荒らし行為の禁止</span>他人の建築物を壊す、チェストを無断で開けるなどの行為は禁止です。</div>
+            <div class="rule-box"><span class="rule-title">2. チート・不正ツールの禁止</span>Xray、飛行チート、チートクライアント、プロキシ等の使用は禁止です。</div>
+            <div class="rule-box"><span class="rule-title">3. 迷惑行為の禁止</span>スパム、暴言、誹謗中傷など他プレイヤーを不快にする行為は禁止です。</div>
+            <div class="rule-box"><span class="rule-title">4. 負荷をかける行為の禁止</span>ラグマシン、大量エンティティ、過度な装置などは禁止です。</div>
+            <div class="rule-box"><span class="rule-title">5. 迷惑建築の禁止</span>スポーン地点付近の無断建築や他人の土地に近すぎる建築は禁止です。</div>
+            <div class="rule-box"><span class="rule-title">6. 不具合の悪用禁止</span>バグや仕様の抜け道を利用して有利になる行為は禁止です。</div>
+            <div class="rule-box"><span class="rule-title">7. 管理者の指示</span>サーバー運営の判断・指示には必ず従ってください。</div>
         </section>
 
-        <section id="spec" class="section-panel">
-            <h2>サーバーの仕様・アドオン</h2>
-            <h3>基本情報</h3>
-            <p>ゲームモード：サバイバル / 難易度：ノーマル / 稼働時間：24時間</p>
-
-            <h3>導入アドオン</h3>
-            <ul>
-                <li><strong>土地保護システム:</strong> 自分の土地を保護し、破壊や盗難を防ぎます。 <a class="addon-link" href="https://minecraft-mcworld.com/60639/" target="_blank">[使い方]</a></li>
-                <li><strong>荒らし対策:</strong> 不審な行動を検知し安全を維持します。 <a class="addon-link" href="https://minecraft-mcworld.com/144818/" target="_blank">[使い方]</a></li>
-                <li><strong>墓石システム:</strong> 死亡時にアイテムが墓石に保存されます。 <a class="addon-link" href="https://minecraft-mcworld.com/203725/" target="_blank">[使い方]</a></li>
-                <li><strong>木こりアドオン:</strong> 一括伐採で資源集めが快適になります。 <a class="addon-link" href="https://minecraft-mcworld.com/37207/" target="_blank">[使い方]</a></li>
-                <li><strong>チャンク境界表示:</strong> 装置作りに便利な境界線を表示します。 <a class="addon-link" href="https://minecraft-yutakura.com/chunk-borders/" target="_blank">[使い方]</a></li>
-            </ul>
+        <section id="addons" class="mc-panel">
+            <h2>サーバー仕様・アドオン</h2>
+            <p>サバイバルをより楽しく、安全にするためのシステムを導入しています。</p>
+            <div class="addon-grid">
+                <div class="addon-card">
+                    <h3>土地保護</h3>
+                    <p>自分の土地を保護し、盗難や破壊を防ぎます。</p>
+                    <a href="https://minecraft-mcworld.com/60639/" target="_blank">▶ 使い方を見る</a>
+                </div>
+                <div class="addon-card">
+                    <h3>墓石システム</h3>
+                    <p>死んでもアイテムが墓に残るため、全ロスを防げます。</p>
+                    <a href="https://minecraft-mcworld.com/203725/" target="_blank">▶ 使い方を見る</a>
+                </div>
+                <div class="addon-card">
+                    <h3>木こりアドオン</h3>
+                    <p>木を根元から一括で伐採できる便利なアドオンです。</p>
+                    <a href="https://minecraft-mcworld.com/37207/" target="_blank">▶ 使い方を見る</a>
+                </div>
+                <div class="addon-card">
+                    <h3>チャンク表示</h3>
+                    <p>装置作成に便利なチャンク境界を表示できます。</p>
+                    <a href="https://minecraft-yutakura.com/chunk-borders/" target="_blank">▶ 使い方を見る</a>
+                </div>
+            </div>
         </section>
 
-        <section id="discord" class="section-panel" style="text-align: center;">
-            <h2>公式Discordサーバー</h2>
-            <p>最新情報や不具合報告、交流はこちらから！</p>
-            <a href="https://discord.gg/E9geQyZjS8" class="btn-discord" target="_blank">Discordに参加する</a>
+        <section id="discord" class="mc-panel">
+            <h2>公式Discord</h2>
+            <p>最新のアップデート情報、プレイヤー同士の交流、不具合報告はDiscordで行っています。参加は必須ではありませんが、強く推奨します！</p>
+            <a href="https://discord.gg/E9geQyZjS8" class="discord-btn" target="_blank">Discordサーバーに参加</a>
         </section>
 
-        <section id="admin" class="section-panel">
-            <h2>管理者</h2>
-            <p>しろくま鯖 運営チーム</p>
-            <p>困ったことがあればDiscord内の問い合わせチャンネルまでお越しください。</p>
+        <section id="admin" class="mc-panel">
+            <h2>管理者情報</h2>
+            <p><strong>しろくま鯖 運営</strong></p>
+            <p>私たちは、初心者から上級者まで、すべてのプレイヤーがのんびりと楽しめる「居心地の良い場所」を目指して運営しています。</p>
         </section>
     </main>
 
     <script>
-        function copyText(text) {
+        function copy(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('コピーしました: ' + text);
+                alert("コピー完了: " + text);
             });
         }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
