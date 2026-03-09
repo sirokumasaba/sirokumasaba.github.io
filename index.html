@@ -25,16 +25,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* スクロール時の強調演出 */
-        @keyframes sectionFlash {
-            0% { background-color: var(--mc-gray); }
-            50% { background-color: #fff; }
-            100% { background-color: var(--mc-gray); }
-        }
-        .section-focus {
-            animation: sectionFlash 0.8s ease;
-        }
-
         @keyframes bgScroll {
             from { background-position: 0 0; }
             to { background-position: 100% 100%; }
@@ -121,8 +111,6 @@
             position: relative;
             box-shadow: inset -6px -6px 0 #555, inset 6px 6px 0 #fff, 20px 20px 0 rgba(0,0,0,0.2);
             animation: fadeInUp 0.8s ease-out backwards;
-            /* スクロール位置の調整用 */
-            scroll-margin-top: 60px;
         }
 
         .section-title {
@@ -230,7 +218,6 @@
             <a href="#about"><i class="fa-solid fa-house"></i>サーバー概要</a>
             <a href="#features"><i class="fa-solid fa-star"></i>サーバーの特徴</a>
             <a href="#addons"><i class="fa-solid fa-cube"></i>導入アドオン</a>
-            <a href="#rules"><i class="fa-solid fa-scroll"></i>運営からのお願い</a>
             <a href="#info"><i class="fa-solid fa-network-wired"></i>接続情報</a>
             <a href="https://discord.gg/E9geQyZjS8" target="_blank" style="background:var(--accent-blue); color:#fff;"><i class="fa-brands fa-discord"></i>公式Discord</a>
         </div>
@@ -313,22 +300,6 @@
             </div>
         </section>
 
-        <section id="rules" class="section-panel" style="animation-delay: 0.35s;">
-            <div class="section-title">運営からのお願い</div>
-            <p>みんなが楽しく過ごせるよう、以下の点にご協力をお願いします。</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card" style="border-left: 8px solid var(--mc-green);">
-                    <h4><i class="fa-solid fa-heart" style="color:var(--mc-green); display:inline; font-size:1.2rem;"></i> 思いやりを大切に</h4>
-                    <p>他人の建築やアイテムを尊重し、お互い気持ちよく挨拶や協力ができる環境をみんなで作りましょう。</p>
-                </div>
-                <div class="feature-card" style="border-left: 8px solid var(--accent-gold);">
-                    <h4><i class="fa-solid fa-circle-exclamation" style="color:var(--accent-gold); display:inline; font-size:1.2rem;"></i> 柔軟な対応へのご理解</h4>
-                    <p>全体の平和を守るため、ルールにない場合でも運営から個別に「お願い」をしたり、やむを得ずBAN等の対応をさせていただく場合があります。</p>
-                </div>
-            </div>
-        </section>
-
         <section id="info" class="section-panel" style="animation-delay: 0.4s;">
             <div class="section-title">サーバー接続情報</div>
             <p>以下の情報をMinecraftのサーバー設定に入力してください。クリックでコピーできます。</p>
@@ -371,28 +342,6 @@
                 alert('コピー成功: ' + text);
             });
         }
-
-        // スクロール時の演出用スクリプト
-        document.querySelectorAll('.nav-menu a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        // スクロール実行
-                        window.scrollTo({
-                            top: target.offsetTop - 60,
-                            behavior: 'smooth'
-                        });
-                        // フラッシュ演出の適用
-                        target.classList.remove('section-focus');
-                        void target.offsetWidth; // リフローを強制して再アニメーション
-                        target.classList.add('section-focus');
-                    }
-                }
-            });
-        });
     </script>
 </body>
 </html>
