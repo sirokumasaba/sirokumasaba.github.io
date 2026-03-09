@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 | 初心者ガイド & 公式HP</title>
+    <title>しろくま鯖 公式ガイド | Minecraft Bedrock Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,388 +15,287 @@
             --mc-green: #55FF55;
             --mc-gold: #FFAA00;
             --mc-red: #FF5555;
-            --mc-ice: #e1f5fe;
+            --mc-ice: #e3f2fd;
             --font-dot: 'DotGothic16', sans-serif;
         }
 
-        /* --- ネザライト剣のカスタムカーソル --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            cursor: none !important; /* デフォルトを消去 */
-        }
+        /* --- 1. ネザライト剣カスタムカーソル (CSS描画) --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
 
-        #sword-cursor {
+        #custom-cursor {
             position: fixed;
-            width: 48px;
-            height: 48px;
-            z-index: 99999;
+            width: 40px;
+            height: 40px;
+            z-index: 999999;
             pointer-events: none;
-            /* ネザライトの剣（エンチャント風）のイメージを背景画像に */
-            background: url('https://raw.githubusercontent.com/R-fuji/Minecraft-Items-Icons/master/items/netherite_sword.png') no-repeat center;
-            background-size: contain;
-            filter: drop-shadow(0 0 5px #a335ee); /* 紫のエンチャント光 */
-            transform: translate(-10%, -10%); /* 剣の先端に合わせる */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 4px #a335ee); /* エンチャントの輝き */
+            transition: transform 0.1s;
         }
 
-        /* --- 全体レイアウト --- */
+        /* ネザライトの剣のドット絵を模した形状 */
+        .sword-icon {
+            width: 30px; height: 30px;
+            background: #312e36; /* ネザライト色 */
+            position: relative;
+            transform: rotate(45deg);
+            border: 2px solid #000;
+        }
+        .sword-icon::before { /* 柄の部分 */
+            content: ''; position: absolute; bottom: -10px; right: -10px;
+            width: 12px; height: 12px; background: #5d4037; border: 2px solid #000;
+        }
+
+        /* --- 2. 全体背景 & UI --- */
         body {
             font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--mc-blue);
-            background-image: linear-gradient(rgba(255,255,255,0.2) 2px, transparent 2px),
-                              linear-gradient(90deg, rgba(255,255,255,0.2) 2px, transparent 2px);
-            background-size: 50px 50px;
+            /* 流れる雲の背景 */
+            background-image: url('https://www.transparenttextures.com/patterns/cloud-pixasol.png');
+            background-attachment: fixed;
             display: flex;
             min-height: 100vh;
-        }
-
-        /* サイドバー */
-        nav {
-            width: 300px;
-            background: #1e1e1e;
-            border-right: 8px solid #000;
-            padding: 30px 15px;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .logo-box {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 10px;
-            background: rgba(255,255,255,0.1);
-            border: 4px dashed #555;
-        }
-
-        .logo-box h1 {
-            color: #fff;
-            font-family: var(--font-dot);
-            font-size: 1.8rem;
-            text-shadow: 3px 3px 0 #000;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 12px;
-            margin-bottom: 10px;
-            background: var(--mc-button);
-            border: 4px solid;
-            border-color: #dbdbdb #353535 #353535 #dbdbdb;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            font-family: var(--font-dot);
-            font-weight: bold;
-        }
-
-        .nav-link:hover {
-            background-color: #5a8aed;
-            color: var(--mc-yellow);
-        }
-
-        .nav-link i { margin-right: 8px; }
-
-        /* メインエリア */
-        main {
-            margin-left: 300px;
-            padding: 40px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .content-panel {
-            background: var(--mc-panel);
-            border: 6px solid #000;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: inset -6px -6px 0 #555, inset 6px 6px 0 #fff;
             color: #333;
         }
 
+        nav {
+            width: 320px; background: #1a1a1a; border-right: 8px solid #000;
+            padding: 40px 20px; position: fixed; height: 100vh; overflow-y: auto; z-index: 100;
+        }
+
+        .nav-logo {
+            text-align: center; margin-bottom: 40px; padding: 20px;
+            border: 4px solid var(--mc-ice); background: rgba(255,255,255,0.05);
+        }
+        .nav-logo h1 { font-family: var(--font-dot); color: #fff; font-size: 1.8rem; text-shadow: 4px 4px 0 #000; }
+
+        .nav-link {
+            display: block; padding: 15px; margin-bottom: 12px;
+            background: var(--mc-button); border: 4px solid;
+            border-color: #dbdbdb #353535 #353535 #dbdbdb;
+            color: #fff; text-decoration: none; font-family: var(--font-dot);
+            font-weight: bold; text-align: center; font-size: 1.1rem;
+        }
+        .nav-link:hover { background-color: #5a8aed; color: var(--mc-yellow); }
+        .nav-link i { margin-right: 10px; }
+
+        /* --- 3. メインパネル --- */
+        main { margin-left: 320px; padding: 60px 40px; width: 100%; max-width: 1200px; }
+
+        .mc-section {
+            background: var(--mc-panel); border: 6px solid #000;
+            padding: 45px; margin-bottom: 60px;
+            box-shadow: inset -6px -6px 0 #555, inset 6px 6px 0 #fff, 15px 15px 0 rgba(0,0,0,0.2);
+            position: relative;
+        }
+
         h2 {
-            font-family: var(--font-dot);
-            background: #333;
-            color: #fff;
-            padding: 10px 20px;
-            display: inline-block;
-            margin-top: -60px;
-            margin-bottom: 25px;
-            border: 4px solid #000;
-            text-shadow: 2px 2px 0 #000;
+            font-family: var(--font-dot); background: #333; color: var(--mc-gold);
+            padding: 10px 30px; border: 4px solid #000; position: absolute;
+            top: -30px; left: 30px; text-shadow: 2px 2px 0 #000; font-size: 2rem;
         }
 
         h3 {
-            font-family: var(--font-dot);
-            color: #000;
-            border-bottom: 4px solid #777;
-            margin: 30px 0 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-family: var(--font-dot); border-bottom: 4px solid #888;
+            margin: 40px 0 20px; padding-bottom: 10px; display: flex; align-items: center; gap: 12px;
         }
 
-        /* サーバー情報のカード */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
+        p { line-height: 1.8; margin-bottom: 20px; font-weight: 500; }
 
+        /* カードデザイン */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
         .info-card {
-            background: #222;
-            color: var(--mc-green);
-            padding: 15px;
-            text-align: center;
-            border: 4px solid #000;
-            cursor: pointer;
+            background: #222; border: 4px solid #000; padding: 20px; text-align: center;
+            transition: 0.1s; cursor: pointer;
         }
+        .info-card:hover { border-color: var(--mc-green); }
+        .info-card .label { color: #aaa; font-size: 0.9rem; margin-bottom: 8px; display: block; }
+        .info-card .val { color: var(--mc-green); font-size: 1.6rem; font-family: monospace; font-weight: bold; }
 
-        .info-card .label { color: #aaa; font-size: 0.8rem; display: block; }
-        .info-card .val { font-size: 1.4rem; font-family: monospace; font-weight: bold; }
-
-        /* 初心者ガイドのステップ表示 */
-        .step-list { list-style: none; counter-reset: step; }
-        .step-list li {
-            position: relative;
-            padding-left: 50px;
-            margin-bottom: 15px;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
+        /* アドオン詳細 */
+        .addon-box {
+            background: rgba(255,255,255,0.4); border: 3px solid #777;
+            padding: 25px; margin-bottom: 20px;
         }
-        .step-list li::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: 0;
-            width: 35px;
-            height: 35px;
-            background: var(--mc-gold);
-            border: 3px solid #000;
-            text-align: center;
-            line-height: 30px;
-            font-family: var(--font-dot);
-            font-weight: bold;
+        .addon-link {
+            display: inline-block; margin-top: 15px; padding: 8px 15px;
+            background: #444; color: var(--mc-ice) !important; text-decoration: none;
+            font-family: var(--font-dot); border: 3px solid #000;
         }
-
-        /* アドオン紹介のグリッド */
-        .addon-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .addon-item {
-            background: rgba(255,255,255,0.5);
-            border: 3px solid #777;
-            padding: 20px;
-        }
-        .addon-item i { font-size: 2rem; color: #444; margin-bottom: 10px; display: block; }
+        .addon-link:hover { background: #555; color: var(--mc-yellow) !important; }
 
         /* ルール */
-        .rule-box {
-            background: #ffeded;
-            border-left: 8px solid var(--mc-red);
-            padding: 15px;
-            margin-bottom: 15px;
+        .rule-card {
+            border-left: 8px solid var(--mc-red); background: #fbe9e7;
+            padding: 20px; margin-bottom: 15px;
         }
-        .rule-box strong { color: var(--mc-red); }
+        .rule-card strong { color: #d32f2f; font-size: 1.1rem; }
 
-        /* 管理者自己紹介 */
-        .admin-profile {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            background: #e1f5fe;
-            padding: 20px;
-            border: 4px solid #0288d1;
+        /* 管理者 */
+        .admin-flex {
+            display: flex; gap: 30px; background: #fff; border: 5px solid #0288d1;
+            padding: 30px; align-items: center;
         }
-        .admin-avatar {
-            width: 80px; height: 80px;
-            background: #fff; border: 4px solid #000;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem;
+        .admin-img {
+            width: 100px; height: 100px; background: #eee; border: 4px solid #000;
+            display: flex; align-items: center; justify-content: center; font-size: 3rem;
         }
 
-        /* ボタン */
-        .btn-discord {
-            background: #5865F2;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            display: block;
-            text-decoration: none;
-            font-family: var(--font-dot);
-            font-size: 1.5rem;
-            border: 4px solid #000;
-            margin-top: 20px;
-        }
-        .btn-discord:hover { background: #4752c4; }
-
-        @media (max-width: 900px) {
-            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 8px solid #000; }
-            main { margin-left: 0; }
-            .addon-grid { grid-template-columns: 1fr; }
-            #sword-cursor { display: none; }
+        @media (max-width: 950px) {
+            nav { width: 100%; height: auto; position: static; border-right: none; }
+            main { margin-left: 0; padding: 40px 15px; }
+            #custom-cursor { display: none; }
             * { cursor: auto !important; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div id="sword-cursor"></div>
+    <div id="custom-cursor"><div class="sword-icon"></div></div>
 
     <nav>
-        <div class="logo-box">
-            <i class="fa-solid fa-ice-cream" style="color: white; font-size: 2rem; margin-bottom: 10px;"></i>
+        <div class="nav-logo">
             <h1>しろくま鯖</h1>
-            <p style="color: #aaa; font-size: 0.7rem;">Official Beginner Guide</p>
+            <p style="color: #fff; font-size: 0.8rem;">Beginner's Guide</p>
         </div>
-        <a href="#info" class="nav-link"><i class="fa-solid fa-server"></i>サーバー情報</a>
-        <a href="#join" class="nav-link"><i class="fa-solid fa-map-location-dot"></i>参加方法</a>
-        <a href="#play" class="nav-link"><i class="fa-solid fa-gamepad"></i>遊び方</a>
-        <a href="#addon" class="nav-item nav-link"><i class="fa-solid fa-puzzle-piece"></i>導入アドオン</a>
-        <a href="#rules" class="nav-link"><i class="fa-solid fa-scroll"></i>規約・ルール</a>
-        <a href="#admin" class="nav-link"><i class="fa-solid fa-user-shield"></i>運営紹介</a>
-        <a href="https://discord.gg/E9geQyZjS8" target="_blank" class="nav-link" style="background: #5865F2;"><i class="fa-brands fa-discord"></i>公式Discord</a>
+        <a href="#info" class="nav-link"><i class="fa-solid fa-server"></i> サーバー情報</a>
+        <a href="#join" class="nav-link"><i class="fa-solid fa-compass"></i> 参加の手順</a>
+        <a href="#addons" class="nav-link"><i class="fa-solid fa-puzzle-piece"></i> 導入機能</a>
+        <a href="#rules" class="nav-link"><i class="fa-solid fa-scroll"></i> 規約・ルール</a>
+        <a href="#admin" class="nav-link"><i class="fa-solid fa-crown"></i> 運営紹介</a>
+        <a href="https://discord.gg/E9geQyZjS8" class="nav-link" style="background: #5865F2;"><i class="fa-brands fa-discord"></i> 公式Discord</a>
     </nav>
 
     <main>
-        <section id="info" class="content-panel">
-            <h2><i class="fa-solid fa-info-circle"></i> サーバー情報</h2>
-            <p>しろくま鯖は、Minecraft統合版（Bedrock Edition）専用の24時間サバイバルサーバーです。</p>
+        <section id="info" class="mc-section">
+            <h2><i class="fa-solid fa-map"></i> サーバー概要</h2>
+            <p><strong>「しろくま鯖」へようこそ！</strong> ここはMinecraft統合版（Bedrock Edition）のプレイヤーが24時間いつでも集まれるサバイバルサーバーです。</p>
+            <p>Agamesの強力なサーバーを使用しているため、ラグが少なく、夜間や休日でも安定したプレイが可能です。初心者の方から、レッドストーン回路を極めたい上級者まで、幅広く歓迎しています。</p>
+            
             <div class="info-grid">
                 <div class="info-card" onclick="copy('05.jpn.gg')">
-                    <span class="label">サーバーアドレス (IP)</span>
+                    <span class="label"><i class="fa-solid fa-link"></i> サーバーアドレス (IP)</span>
                     <span class="val">05.jpn.gg</span>
                 </div>
                 <div class="info-card" onclick="copy('10274')">
-                    <span class="label">ポート番号 (Port)</span>
+                    <span class="label"><i class="fa-solid fa-hashtag"></i> ポート番号 (Port)</span>
                     <span class="val">10274</span>
                 </div>
-                <div class="info-card">
-                    <span class="label">対応プラットフォーム</span>
-                    <span class="val">Win10 / PE / CS</span>
-                </div>
             </div>
-            <p style="font-size: 0.8rem; color: #666;">※IP/ポートをタップするとコピーできます。</p>
+            <p style="text-align: center; color: #666; font-size: 0.9rem;">※上記の黒いカードをクリックすると、IPとポートをコピーできます。</p>
         </section>
 
-        <section id="join" class="content-panel">
-            <h2><i class="fa-solid fa-door-open"></i> 参加方法</h2>
-            <ul class="step-list">
-                <li>Minecraftを起動して<strong>「遊ぶ」</strong>を選択</li>
-                <li><strong>「サーバー」</strong>タブに切り替え、一番下の<strong>「サーバーを追加」</strong>を押す</li>
-                <li>サーバー名に<strong>「しろくま鯖」</strong>と入力（自分の管理用なので自由でOK）</li>
-                <li>アドレスに<strong>「05.jpn.gg」</strong>、ポートに<strong>「10274」</strong>を入力</li>
-                <li><strong>「保存」</strong>または<strong>「参加」</strong>を押してワールドへ！</li>
-            </ul>
-        </section>
-
-        <section id="play" class="content-panel">
-            <h2><i class="fa-solid fa-compass"></i> しろくま鯖の遊び方</h2>
-            <p>このサーバーは、自由な<strong>サバイバル生活</strong>がメインです。PvP（プレイヤー同士の戦い）よりも、協力や共存を大切にしています。</p>
-            <div class="addon-grid">
-                <div class="addon-item">
-                    <i class="fa-solid fa-hammer"></i>
-                    <strong>建築・町づくり</strong>
-                    <p>自分の家を建てたり、他のプレイヤーと協力して大きな町を作ることができます。</p>
-                </div>
-                <div class="addon-item">
-                    <i class="fa-solid fa-wheat-awn"></i>
-                    <strong>農業・資源集め</strong>
-                    <p>広大な世界を探索し、レアなアイテムを集めたり、大規模な自動農場を作ったりしましょう。</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="addon" class="content-panel">
-            <h2><i class="fa-solid fa-box-open"></i> 導入アドオン紹介</h2>
-            <p>より快適に、安全に遊ぶための機能を導入しています。</p>
+        <section id="join" class="mc-section">
+            <h2><i class="fa-solid fa-right-to-bracket"></i> 参加方法の詳細</h2>
+            <p>統合版（スマホ、タブレット、Win10/11、Switch、PS4/5、Xbox等）から以下の手順で参加できます。</p>
             
-            <h3><i class="fa-solid fa-shield-halved"></i> 土地・チャンク保護</h3>
-            <p>自分の土地を保護し、他人による破壊やチェストの開封を防止できます。家を建てるときは必ず設定しましょう！</p>
-
-            <h3><i class="fa-solid fa-border-all"></i> チャンク境目表示</h3>
-            <p>チャンク（16x16）の境界を可視化。効率的な装置作りや、保護範囲の確認に非常に便利です。</p>
-
-            <h3><i class="fa-solid fa-tombstone"></i> 墓石アドオン</h3>
-            <p>もし死亡してしまっても、その場に<strong>「墓石」</strong>が生成されます。アイテムが散らばってロストするのを防ぎ、安全に回収できます。</p>
-
-            <h3><i class="fa-solid fa-magnifying-glass"></i> 荒らし・チート対策</h3>
-            <p>高度な検知システムが24時間稼働中。チート行為や不審な行動、大規模な破壊はすべてログに残ります。</p>
+            <h3>ステップ1: サーバー追加</h3>
+            <p>マイクラを起動し、「遊ぶ」＞「サーバー」タブ＞「サーバーを追加」を選択します。</p>
+            
+            <h3>ステップ2: 情報の入力</h3>
+            <p>サーバー名は何でも構いません（例：しろくま鯖）。アドレスに<strong>05.jpn.gg</strong>、ポートに<strong>10274</strong>を入力してください。半角で入力することに注意してください！</p>
+            
+            <h3>ステップ3: 保存と参加</h3>
+            <p>「保存」を押すと一覧に「しろくま鯖」が表示されます。それを選択して「サーバーに参加」で入ることができます。</p>
+            
+            <div style="background: #fff3e0; border: 3px solid #ff9800; padding: 15px; margin-top: 20px;">
+                <p><strong>【Switch/PSユーザーの方へ】</strong><br>
+                コンシューマー機では直接外部サーバーを追加できない設定になっています。YouTube等で「マイクラ 統合版 DNS設定 サーバー参加」と検索し、設定を行ってからお越しください！</p>
+            </div>
         </section>
 
-        <section id="rules" class="content-panel">
-            <h2><i class="fa-solid fa-scale-balanced"></i> サーバールール</h2>
-            <div class="rule-box">
-                <strong>1. 荒らし行為の厳禁</strong>
-                <p>他人の家を壊す、無断でアイテムを盗む行為は即座に処罰の対象となります。</p>
+        <section id="addons" class="mc-section">
+            <h2><i class="fa-solid fa-gears"></i> 導入アドオン解説</h2>
+            <p>しろくま鯖では、バニラの楽しさを壊さず、マルチプレイを快適にするためのアドオンを厳選して導入しています。</p>
+
+            <div class="addon-box">
+                <h3><i class="fa-solid fa-shield"></i> 土地保護（チャンク保護）</h3>
+                <p>自分の拠点や大切なチェストを、他のプレイヤーによる破壊・盗難から守ることができます。専用のアイテムを使って範囲を指定します。マルチでは必須の機能です！</p>
+                <a href="https://minecraft-mcworld.com/60639/" target="_blank" class="addon-link">▶ 詳しい使い方はこちら</a>
             </div>
-            <div class="rule-box">
-                <strong>2. チート・不正使用の禁止</strong>
-                <p>Xray、飛行、オートクリッカー等の使用は一切認めていません。</p>
+
+            <div class="addon-box">
+                <h3><i class="fa-solid fa-tombstone"></i> 墓石アドオン</h3>
+                <p>不慮の事故で倒れてしまった際、その場にアイテムが入った「墓石」が建ちます。5分で消滅する心配がなく、安全に全アイテムを回収できます。</p>
+                <a href="https://minecraft-mcworld.com/203725/" target="_blank" class="addon-link">▶ 解説サイトを見る</a>
             </div>
-            <div class="rule-box">
-                <strong>3. 迷惑行為・暴言の禁止</strong>
-                <p>チャットでの誹謗中傷やスパムはやめましょう。みんなが楽しく遊べる言葉遣いを。</p>
+
+            <div class="addon-box">
+                <h3><i class="fa-solid fa-border-all"></i> チャンク境界表示</h3>
+                <p>コマンドやアイテムで「チャンクの切れ目」を確認できます。トラップタワーの作成や、土地保護の正確な範囲確認に重宝します。</p>
+                <a href="https://minecraft-yutakura.com/chunk-borders/" target="_blank" class="addon-link">▶ チャンクとは？詳細解説</a>
             </div>
-            <div class="rule-box">
-                <strong>4. サーバー負荷への配慮</strong>
-                <p>ラグを発生させるような過度なクロック回路や、大量のMob放置は制限させていただく場合があります。</p>
+
+            <div class="addon-box">
+                <h3><i class="fa-solid fa-eye"></i> 荒らし対策システム</h3>
+                <p>不正ツールや異常な速度の破壊、チート行為を自動で検知・記録します。万が一荒らされても、時間を指定して元通りに戻す（ロールバック）ことが可能です。</p>
+                <a href="https://minecraft-mcworld.com/144818/" target="_blank" class="addon-link">▶ 対策アドオンの詳細</a>
             </div>
-            <p style="color: var(--mc-red); font-weight: bold;"><i class="fa-solid fa-triangle-exclamation"></i> 違反した場合、警告なしにBAN（永久追放）を行うことがあります。</p>
         </section>
 
-        <section id="admin" class="content-panel">
-            <h2><i class="fa-solid fa-user-shield"></i> 管理者プロフィール</h2>
-            <div class="admin-profile">
-                <div class="admin-avatar">🐻</div>
+        <section id="rules" class="mc-section">
+            <h2><i class="fa-solid fa-gavel"></i> サーバールール</h2>
+            <p>みんなが平和に遊ぶための憲法です。必ず目を通してください。</p>
+
+            <div class="rule-card">
+                <strong><i class="fa-solid fa-ban"></i> 荒らし行為の絶対禁止</strong>
+                <p>他人の建築を壊す、チェストから盗む、わざと溶岩を流す等の迷惑行為は一発BAN（永久追放）となります。</p>
+            </div>
+            <div class="rule-card">
+                <strong><i class="fa-solid fa-bolt"></i> チート・不正ツールの禁止</strong>
+                <p>透過（Xray）、飛行、移動速度変更、チートクライアントの使用は厳禁です。システムが自動で検知します。</p>
+            </div>
+            <div class="rule-card">
+                <strong><i class="fa-solid fa-comment-slash"></i> 暴言・誹謗中傷の禁止</strong>
+                <p>チャットでのスパムや、特定の個人を攻撃する発言はやめましょう。しろくまのように温かい心で！</p>
+            </div>
+            <div class="rule-card">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> 負荷のかかる行為</strong>
+                <p>ラグマシンや過度なエンティティ（Mob）の溜め込みは、サーバーダウンに繋がるため、発見次第撤去します。</p>
+            </div>
+
+            <div style="background: #333; color: var(--mc-gold); padding: 20px; border: 4px solid #000; margin-top: 30px;">
+                <p style="margin-bottom: 0;"><strong>【運営からのおねがい】</strong><br>
+                ルールに書かれていないことでも、運営が「これはみんなの迷惑になる」と判断した場合は、お声がけや処置をすることがあります。平和な世界のためにご協力ください！</p>
+            </div>
+        </section>
+
+        <section id="admin" class="mc-section">
+            <h2><i class="fa-solid fa-address-card"></i> 管理者紹介</h2>
+            <div class="admin-flex">
+                <div class="admin-img">🐻</div>
                 <div class="admin-info">
-                    <strong style="font-size: 1.5rem; font-family: var(--font-dot);">Mrsirokuma4698 (Mr.しろくま)</strong>
-                    <p style="margin: 10px 0; font-size: 0.95rem;">
-                        <strong>【自己紹介】</strong><br>
-                        みんなが安心できて、協力できて、何より最高に楽しく遊べるサーバーにしたいと思っています！<br>
-                        サーバー内で見かけたら気軽に声をかけてくださいね。
-                    </p>
-                    <p style="font-size: 0.85rem; color: #555;">
-                        <strong>【趣味】</strong> マイクラ / 人狼ゲーム / プログラミング
-                    </p>
+                    <p style="font-size: 1.8rem; font-family: var(--font-dot); margin-bottom: 10px;">Mrsirokuma4698 <span style="font-size: 1rem; color: #666;">(Mr.しろくま)</span></p>
+                    <p><strong>「みんなが安心できて、協力できて、楽しく遊べるサーバーにしたいです。」</strong></p>
+                    <p>このサーバーの主です！みんなが居心地よく過ごせる場所を作るために日々メンテナンスしています。趣味はマイクラの他に、人狼ゲームやプログラミング（HTML/CSS/JS）をいじることです。困ったことがあればいつでも頼ってくださいね！</p>
                 </div>
             </div>
         </section>
-
-        <section id="discord" class="content-panel" style="background: #2c2f33; color: white;">
-            <h2 style="background: #5865F2; border-color: #fff;"><i class="fa-brands fa-discord"></i> Discordコミュニティ</h2>
-            <p>最新のアップデート告知や、プレイヤー同士の雑談、建築写真の投稿はこちら！</p>
-            <a href="https://discord.gg/E9geQyZjS8" class="btn-discord" target="_blank">Discordに参加する</a>
-        </section>
-
-        <p style="text-align: center; color: white; padding-bottom: 40px; font-family: var(--font-dot);">© しろくま鯖 2024-2026 - Happy Crafting!</p>
     </main>
 
     <script>
-        // ネザライト剣のカーソル追従
-        const cursor = document.getElementById('sword-cursor');
+        // ネザライト剣のカーソル制御
+        const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // クリックしたときに剣を振るアニメーション（おまけ）
+        // クリック時に剣を振る
         document.addEventListener('mousedown', () => {
-            cursor.style.transform = 'translate(-10%, -10%) rotate(-20deg)';
+            cursor.style.transform = 'scale(0.8) rotate(-20deg)';
         });
         document.addEventListener('mouseup', () => {
-            cursor.style.transform = 'translate(-10%, -10%) rotate(0deg)';
+            cursor.style.transform = 'scale(1) rotate(0deg)';
         });
 
-        // コピー機能
+        // コピー
         function copy(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('コピーしたよ！: ' + text);
+                alert('コピー成功！: ' + text);
             });
         }
     </script>
