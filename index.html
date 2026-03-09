@@ -3,197 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>しろくま鯖 公式サイト | 統合版 24時間サバイバル</title>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>しろくま鯖 公式サイト</title>
     <style>
-        :root {
-            --mc-blue: #5d8be1; /* 背景の空色 */
-            --mc-grass: #529452; 
-            --mc-dirt: #8B5A2B;
-            --mc-panel-bg: #C6C6C6;
-            --mc-btn: #8B8B8B;
-            --mc-btn-hover: #5865F2;
-            --mc-green: #55FF55;
-            --mc-gold: #FFAA00;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        /* 外部フォントを廃止し、システム標準で高速化 */
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background: var(--mc-blue);
-            /* image_221e15.pngのような地面ラインを再現 */
-            background-image: linear-gradient(to bottom, var(--mc-blue) 75%, var(--mc-grass) 75%, var(--mc-grass) 77%, var(--mc-dirt) 77%);
-            background-attachment: fixed;
-            display: flex; min-height: 100vh;
+            margin: 0; padding: 0;
+            background-color: #5d8be1; /* 空色 */
+            color: #333;
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.6;
         }
 
-        /* サイドバー：image_21adf4.pngのレイアウトを再現 */
+        /* サイドバー：画像なしでも崩れない設計 */
         nav {
-            width: 300px; background: #111; border-right: 6px solid #000;
-            padding: 40px 15px; position: fixed; height: 100vh; z-index: 100;
+            width: 280px; background: #1a1a1a; color: #fff;
+            position: fixed; height: 100vh; padding: 20px;
+            border-right: 5px solid #000;
         }
-        .nav-logo { width: 100%; margin-bottom: 35px; border-radius: 8px; }
-
-        .mc-btn {
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 18px; margin-bottom: 12px;
-            background: var(--mc-btn); border: 4px solid;
+        .nav-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 30px; text-align: center; color: #fff; }
+        
+        .menu-btn {
+            display: block; width: 100%; padding: 15px; margin-bottom: 10px;
+            background: #8B8B8B; border: 4px solid;
             border-color: #dbdbdb #353535 #353535 #dbdbdb;
-            color: #fff; text-decoration: none;
-            font-family: 'DotGothic16', sans-serif; font-size: 1.2rem;
-            text-shadow: 2px 2px 0 #000;
+            color: #fff; text-decoration: none; text-align: center; font-weight: bold;
         }
-        .mc-btn i { margin-right: 10px; font-size: 1rem; }
-        .mc-btn:hover { background: var(--mc-btn-hover); color: var(--mc-gold); }
+        .menu-btn:hover { background: #5865F2; }
 
-        /* メインエリア */
-        main { margin-left: 300px; padding: 50px; width: 100%; max-width: 1100px; }
+        /* メインコンテンツ */
+        main { margin-left: 280px; padding: 40px; max-width: 900px; }
 
-        .mc-panel {
-            background: var(--mc-panel-bg); border: 5px solid #000;
-            padding: 40px; margin-bottom: 50px;
-            box-shadow: inset -6px -6px 0 #555, inset 6px 6px 0 #fff;
-            position: relative;
+        .section-card {
+            background: #C6C6C6; border: 4px solid #000;
+            padding: 30px; margin-bottom: 40px;
+            box-shadow: inset -4px -4px 0 #555, inset 4px 4px 0 #fff;
         }
 
-        /* セクション見出し：日本語化＆おしゃれな装飾 */
-        .section-title {
-            font-family: 'DotGothic16', sans-serif; background: #333; color: #fff;
-            padding: 12px 30px; border: 4px solid #fff; position: absolute;
-            top: -35px; left: 20px; font-size: 1.8rem; text-shadow: 2px 2px 0 #000;
-            box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
-        }
+        h2 { background: #333; color: #fff; padding: 10px 20px; display: inline-block; margin: -50px 0 20px -10px; border: 3px solid #fff; }
+        h3 { border-bottom: 3px solid #888; padding-bottom: 5px; margin-top: 0; }
+        p { font-weight: bold; margin-bottom: 15px; }
 
-        h3 { font-family: 'DotGothic16', sans-serif; font-size: 1.6rem; margin: 30px 0 15px; border-bottom: 3px solid #888; color: #111; }
-        p { line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; color: #222; font-weight: bold; }
+        /* 特徴一覧：記号アイコンで読み込み不要に */
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .feature-item { background: #fff; border: 3px solid #000; padding: 15px; }
+        .feature-item b { color: #0288d1; display: block; margin-bottom: 5px; font-size: 1.1rem; }
+        .link-text { font-size: 0.8rem; color: #666; text-decoration: underline; }
 
-        /* 特徴カード：image_214876.pngのスタイル */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .card {
-            background: #fff; border: 4px solid #000; padding: 25px;
-            transition: transform 0.2s;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card i { color: #0288d1; font-size: 1.5rem; margin-bottom: 15px; display: block; }
-        .card h4 { font-family: 'DotGothic16'; font-size: 1.3rem; margin-bottom: 10px; color: #000; }
-        .card p { font-size: 0.95rem; margin-bottom: 15px; color: #444; }
+        /* サーバー情報 */
+        .status-box { background: #000; color: #55FF55; padding: 20px; border: 2px solid #fff; }
+        .info-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #333; }
 
-        .btn-sm {
-            display: inline-block; padding: 8px 15px; background: #333; color: #fff !important;
-            text-decoration: none; font-size: 0.85rem; font-family: 'DotGothic16';
-        }
+        /* 運営理念 */
+        .admin-area { background: #fff; border: 5px solid #0288d1; padding: 20px; }
 
-        /* 接続情報：image_21b0da.pngの再現 */
-        .info-box { background: #000; padding: 30px; border: 4px solid #fff; color: var(--mc-green); }
-        .info-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #333; }
-        .info-row b { font-family: monospace; font-size: 1.6rem; text-shadow: 0 0 10px var(--mc-green); }
-
-        /* 運営紹介：image_21b179.pngの再現 */
-        .admin-box { background: #fff; border: 6px solid #0288d1; padding: 30px; display: flex; gap: 25px; align-items: center; }
-        .admin-icon { width: 120px; height: 120px; border: 4px solid #333; border-radius: 50%; }
-
-        footer { text-align: center; color: white; padding: 40px; font-family: 'DotGothic16'; text-shadow: 2px 2px 0 #000; }
-
-        @media (max-width: 900px) {
+        @media (max-width: 800px) {
             nav { width: 100%; height: auto; position: static; border-right: none; }
             main { margin-left: 0; padding: 20px; }
-            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <img src="logo.png" class="nav-logo" alt="しろくま鯖 ロゴ" onerror="this.src='https://via.placeholder.com/260x100/333/fff?text=SHIROKUMA+SABA'">
-        <a href="#about" class="mc-btn"><i class="fas fa-info-circle"></i>サーバー概要</a>
-        <a href="#features" class="mc-btn"><i class="fas fa-star"></i>サーバーの特徴</a>
-        <a href="#info" class="mc-btn"><i class="fas fa-network-wired"></i>サーバー情報</a>
-        <a href="#admin" class="mc-btn"><i class="fas fa-user-shield"></i>運営の理念</a>
-        <a href="https://discord.gg/E9geQyZjS8" target="_blank" class="mc-btn" style="background:#5865f2;"><i class="fab fa-discord"></i>公式Discord</a>
-    </nav>
+<nav>
+    <div class="nav-title">しろくま鯖</div>
+    <a href="#about" class="menu-btn">サーバー概要</a>
+    <a href="#features" class="menu-btn">サーバーの特徴</a>
+    <a href="#info" class="menu-btn">サーバー情報</a>
+    <a href="#admin" class="menu-btn">運営理念</a>
+    <a href="https://discord.gg/E9geQyZjS8" class="menu-btn" style="background:#5865f2;">公式Discord</a>
+</nav>
 
-    <main>
-        <section id="about" class="mc-panel">
-            <div class="section-title">サーバー概要</div>
-            <p>しろくま鯖は、誰でも気軽に参加できる Minecraft Bedrock Edition（統合版）の公開サバイバルサーバーです。</p>
-            <p>建築・探索・資源集め・街づくりなど、サバイバルを自由に楽しめます。24時間稼働しているため、夜しか遊べない方や空いた時間に少しだけ遊びたい方でも、いつでも好きな時間に参加可能です。</p>
-            <p>マルチプレイが初めての人でも安心。荒らし対策や土地保護など、拠点を守るための環境づくりに力を入れています。</p>
-        </section>
+<main>
+    <section id="about" class="section-card">
+        <h2>サーバー概要</h2>
+        <p>しろくま鯖は、誰でも気軽に参加できる Minecraft Bedrock Edition（統合版）の公開サバイバルサーバーです。</p>
+        <p>このサーバーでは、建築・探索・資源集め・街づくりなど、Minecraftのサバイバルを自由に楽しむことができます。のんびりと自分の拠点を作ったり、遠くまで冒険に出かけたり、他のプレイヤーと協力して大きな街を作ったりと、プレイヤーそれぞれのスタイルで遊べる環境を目指しています。</p>
+        <p>しろくま鯖は 24時間稼働しているため、いつでも好きな時間に参加して遊ぶことができます。マルチサーバーが初めての人でも遊びやすいように、環境づくりにも力を入れています。</p>
+    </section>
 
-        <section id="features" class="mc-panel">
-            <div class="section-title">サーバーの特徴</div>
-            <div class="grid">
-                <div class="card">
-                    <i class="fas fa-clock"></i>
-                    <h4>24時間年中無休</h4>
-                    <p>自分の好きなタイミングでいつでも参加可能。忙しい人でも遊びやすい環境です。</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>土地保護システム</h4>
-                    <p>チャンク保護アドオンにより、建築の破壊やチェストの無断開封を防止。拠点を安全に守れます。</p>
-                    <a href="https://minecraft-mcworld.com/60639/" class="btn-sm" target="_blank">使い方</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-user-slash"></i>
-                    <h4>荒らし対策完備</h4>
-                    <p>不審な行動を検知する最新のアドオンを導入。安全な冒険を運営がサポートします。</p>
-                    <a href="https://minecraft-mcworld.com/144818/" class="btn-sm" target="_blank">詳細</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-skull-crossbones"></i>
-                    <h4>墓石システム</h4>
-                    <p>死亡してもアイテムは墓石に保存。全ロスを気にせず、果敢に冒険へ出かけられます。</p>
-                    <a href="https://minecraft-mcworld.com/203725/" class="btn-sm" target="_blank">使い方</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-tree"></i>
-                    <h4>快適な木こり機能</h4>
-                    <p>木を一気に伐採できるアドオンを搭載。建築資材集めが驚くほどスムーズになります。</p>
-                    <a href="https://minecraft-mcworld.com/37207/" class="btn-sm" target="_blank">詳細</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-border-all"></i>
-                    <h4>チャンク境界表示</h4>
-                    <p>装置作りや配置に便利な境界表示。テクニカルな建築をサポートします。</p>
-                    <a href="https://minecraft-yutakura.com/chunk-borders/" class="btn-sm" target="_blank">解説サイト</a>
-                </div>
+    <section id="features" class="section-card">
+        <h2>サーバーの特徴</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <b>⏰ 24時間稼働</b>
+                <span>自分の好きなタイミングで参加可能。忙しい人でも遊びやすいサーバーです。</span>
             </div>
-        </section>
-
-        <section id="info" class="mc-panel">
-            <div class="section-title">サーバー接続情報</div>
-            <div class="info-box">
-                <div class="info-row"><span>サーバーアドレス</span><b>05.jpn.gg</b></div>
-                <div class="info-row"><span>ポート番号</span><b>10274</b></div>
-                <div class="info-row"><span>最新バージョン</span><span>統合版 最新</span></div>
+            <div class="feature-item">
+                <b>🛡️ 土地保護システム</b>
+                <span>建築の破壊やチェストの無断開封を防止。安心して拠点を作れます。</span><br>
+                <a href="https://minecraft-mcworld.com/60639/" class="link-text">使い方はこちら</a>
             </div>
-            <p style="margin-top:20px; text-align:center;">
-                <a href="https://discord.gg/E9geQyZjS8" class="mc-btn" style="background:#5865f2; display:inline-flex; width:auto; padding:15px 40px;">
-                    <i class="fab fa-discord"></i> Discordで仲間を見つける
-                </a>
-            </p>
-        </section>
-
-        <section id="admin" class="mc-panel">
-            <div class="section-title">運営の理念</div>
-            <div class="admin-box">
-                <img src="admin.png" class="admin-icon" alt="管理者アイコン" onerror="this.src='https://via.placeholder.com/120/0288d1/fff?text=ADMIN'">
-                <div>
-                    <h3>Mrsirokuma4698 (Mr.しろくま)</h3>
-                    <p>「安心・協力・楽しく遊べる、みんなの居場所を作ること」</p>
-                    <p>ただサーバーを維持するだけでなく、技術的な改善を続け、皆さんが「今日もあそこに行こう」と思える環境作りを大切にしています。</p>
-                </div>
+            <div class="feature-item">
+                <b>🚫 荒らし対策</b>
+                <span>不審な行動を検知し、安全な環境で遊べるように運営しています。</span><br>
+                <a href="https://minecraft-mcworld.com/144818/" class="link-text">詳細はこちら</a>
             </div>
-        </section>
+            <div class="feature-item">
+                <b>🪦 墓石システム</b>
+                <span>死亡時のアイテムは墓石に保存。アイテムを失う心配がありません。</span><br>
+                <a href="https://minecraft-mcworld.com/203725/" class="link-text">使い方はこちら</a>
+            </div>
+            <div class="feature-item">
+                <b>🪓 木こりアドオン</b>
+                <span>木をまとめて伐採可能。資源集めが快適になります。</span><br>
+                <a href="https://minecraft-mcworld.com/37207/" class="link-text">詳細はこちら</a>
+            </div>
+            <div class="feature-item">
+                <b>方 チャンク境界表示</b>
+                <span>装置作りや建築の配置を効率よく行うことができます。</span><br>
+                <a href="https://minecraft-yutakura.com/chunk-borders/" class="link-text">解説はこちら</a>
+            </div>
+        </div>
+    </section>
 
-        <footer>
-            <p>© 2026 しろくま鯖 | 統合版マイクラ専用サバイバルサーバー</p>
-        </footer>
-    </main>
+    <section id="info" class="section-card">
+        <h2>サーバー情報</h2>
+        <div class="status-box">
+            <div class="info-row"><span>アドレス</span><b>05.jpn.gg</b></div>
+            <div class="info-row"><span>ポート</span><b>10274</b></div>
+            <div class="info-row"><span>難易度</span><span>ノーマル</span></div>
+            <div class="info-row"><span>稼働時間</span><span>24時間</span></div>
+        </div>
+    </section>
+
+    <section id="admin" class="section-card">
+        <h2>運営理念</h2>
+        <div class="admin-area">
+            <h3>管理者: Mrsirokuma4698</h3>
+            <p>「安心・協力・楽しく遊べる、みんなの居場所を作ること」を大切にしています。自身のプログラミング（HTML/CSS/JS）への情熱を、このサイトやサーバーの利便性向上に注いでいます。一緒にしろくま鯖を盛り上げましょう！</p>
+        </div>
+    </section>
+</main>
 
 </body>
 </html>
