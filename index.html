@@ -1,11 +1,574 @@
-<script>
-        const GEMINI_API_KEY = "あなたのAPIキー"; // ここにキーを入れてね
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>しろくま鯖 | 統合版マイクラ 24Hサバイバル公式</title>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* マイクラカラーパレット */
+            --mc-blue: #37c6ff; /* 昼の空 */
+            --mc-blue-dark: #1a2a6c; /* 夜の空/オーロラ */
+            --mc-panel: #C6C6C6; /* インベントリグレー */
+            --mc-button: #8B8B8B; /* 通常ボタン */
+            --mc-button-active: #5865F2; /* ホバー/Discordブルー */
+            --mc-green: #55FF55; /* ONLINEステータス */
+            --mc-gold: #FFAA00; /* 重要文字 */
+            --mc-red: #FF5555; /* 警告 */
+            --mc-ice: #e3f2fd; /* しろくまの白/氷 */
+            
+            /* フォントスタック */
+            --font-main: 'Noto Sans JP', sans-serif;
+            --font-dot: 'DotGothic16', sans-serif;
+        }
+
+        /* --- 基本設定 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            
+            /* 超おしゃれ背景：朝焼けから昼に変わる空のグラデーション */
+            background: linear-gradient(180deg, var(--mc-blue-dark) 0%, var(--mc-blue) 50%, #f0faff 100%);
+            background-attachment: fixed;
+        }
+
+        /* 背景装飾：透过テクスチャでドット感をプラス */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* アニメーション用：ふわっと表示 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .mc-section { animation: fadeIn 0.6s ease-out; }
+
+        /* --- サイドバーナビゲーション (プロっぽく、便利に) --- */
+        nav {
+            width: 320px;
+            background: rgba(0, 0, 0, 0.85);
+            border-right: 8px solid #000;
+            padding: 40px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 10px 0 0 rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px); /* ガラスエフェクト */
+        }
+
+        .nav-logo-area {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 4px solid var(--mc-ice);
+            background: rgba(255,255,255,0.05);
+        }
+        .nav-logo-area img {
+            width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+        .nav-logo-area h1 {
+            font-family: var(--font-dot);
+            color: #fff;
+            font-size: 1.8rem;
+            text-shadow: 4px 4px 0 #000;
+        }
+        .nav-logo-area .sub {
+            color: var(--mc-ice);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+
+        /* 立体感のあるマイクラ風ボタン (動かない、おしゃれ) */
+        .nav-link {
+            display: block;
+            width: 100%;
+            padding: 15px 10px;
+            margin-bottom: 12px;
+            background: var(--mc-button);
+            border: 4px solid;
+            border-color: #dbdbdb #353535 #353535 #dbdbdb;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            font-family: var(--font-dot);
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 2px 2px 0 #333;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--mc-button-active);
+            border-color: #83a7ff #2a4a9e #2a4a9e #83a7ff;
+            color: var(--mc-yellow);
+            transform: translateX(5px); /* おしゃれな動き */
+        }
+
+        .nav-link:active {
+            border-color: #353535 #dbdbdb #dbdbdb #353535;
+            transform: translateY(2px);
+        }
+
+        .nav-link i { margin-right: 10px; }
+
+        /* --- メインコンテンツエリア (コク深く、装飾多め) --- */
+        main {
+            margin-left: 320px;
+            padding: 60px 40px;
+            flex-grow: 1;
+            max-width: 1200px;
+            z-index: 1;
+        }
+
+        /* マイクラのインベントリ/チェスト風パネル */
+        .mc-section {
+            background: var(--mc-panel);
+            border: 6px solid #000;
+            padding: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            /* 凹凸のあるドット影 */
+            box-shadow: 
+                inset -6px -6px 0px #555555, 
+                inset 6px 6px 0px #ffffff,
+                15px 15px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 岩盤 見出し */
+        h2 {
+            font-family: var(--font-dot);
+            background: #333 url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            color: var(--mc-gold);
+            padding: 12px 30px;
+            border: 4px solid #000;
+            position: absolute;
+            top: -35px;
+            left: 30px;
+            text-shadow: 2px 2px 0 #000;
+            font-size: 2rem;
+            box-shadow: inset -4px -4px 0 #000, inset 4px 4px 0 #555, 5px 5px 0 rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-family: var(--font-dot);
+            color: #111;
+            margin: 35px 0 15px;
+            border-bottom: 4px solid #888;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+        }
+        h3 i { color: #0288d1; }
+
+        /* 箇条書き：しろくまの足跡風 */
+        p { line-height: 2; margin-bottom: 30px; font-weight: 500; font-size: 1.1rem; color: #222; }
+        .spec-box { background: rgba(0,0,0,0.05); border-left: 8px solid var(--mc-blue); padding: 20px; margin: 20px 0 30px; }
+        .spec-box li {
+            list-style: none;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .spec-box li::before {
+            content: "🐾"; /* しろくまの足跡 */
+            color: var(--mc-blue);
+            font-size: 1.2rem;
+        }
+
+        /* --- サーバー情報カード --- */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; }
+        
+        .info-card {
+            background: #222 url('https://www.transparenttextures.com/patterns/dark-dots-pixel.png');
+            border: 5px solid #000;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.1s;
+            position: relative;
+        }
+        .info-card:hover { border-color: var(--mc-green); }
+        .info-card:active { border-color: #dbdbdb; transform: translateY(0px); }
+
+        .info-card .label { color: #aaa; font-size: 1rem; margin-bottom: 10px; display: block; }
+        .info-card .val { color: var(--mc-green); font-size: 1.8rem; font-family: monospace; font-weight: bold; text-shadow: 2px 2px 0 #000; }
+
+        /* --- アドオン紹介タイル --- */
+        .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .addon-tile {
+            background: #fff url('https://www.transparenttextures.com/patterns/fabric-of-the-world.png');
+            border: 3px solid #000;
+            padding: 30px;
+            box-shadow: inset -4px -4px 0 #ccc, 5px 5px 0 rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .addon-tile:hover { transform: scale(1.03); }
+        .addon-tile h4 {
+            font-family: var(--font-dot);
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .addon-tile h4 i { color: var(--mc-blue); }
+
+        /* マイクラ風使い方ボタン */
+        .how-to-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: #333; /* 木材風 */
+            color: #fff !important;
+            text-decoration: none;
+            font-family: var(--font-dot);
+            border: 3px solid #000;
+            box-shadow: inset -3px -3px 0 #000, inset 3px 3px 0 #555;
+            text-shadow: 2px 2px 0 #000;
+        }
+        .how-to-link:hover { 
+            background: var(--mc-gold); 
+            color: #000 !important; 
+            box-shadow: inset -3px -3px 0 #b58800, inset 3px 3px 0 #ffda6e;
+            text-shadow: none;
+        }
+
+        /* --- ルールセクション --- */
+        .rule-card {
+            border-left: 8px solid var(--mc-red);
+            background: #fdf2f2;
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.05);
+        }
+        .rule-card strong { color: #d32f2f; display: block; margin-bottom: 5px; font-family: var(--font-dot); font-size: 1.3rem; }
+
+        /* --- 管理者セクション (超重点強化) --- */
+        .admin-flex {
+            display: flex; gap: 40px; background: #fff; border: 6px solid #0288d1;
+            padding: 50px; align-items: flex-start;
+            box-shadow: inset -5px -5px 0 #01579b, inset 5px 5px 0 #4fc3f7, 10px 10px 0 rgba(0,0,0,0.2);
+        }
+        
+        .admin-icon-wrapper {
+            position: relative; flex-shrink: 0;
+        }
+        .admin-avatar-fallback {
+            width: 140px; height: 140px; background: #eee; border: 5px solid #000;
+            display: flex; align-items: center; justify-content: center; font-size: 5rem;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+        }
+        /* あなたのアイコン画像をアップロードする際はsrcを書き換えてください */
+        .admin-avatar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+            border-radius: 50%; border: 4px solid #333;
+            /* 画像がまだない場合は非表示にする設定 */
+            opacity: 0;
+            transition: 0.3s;
+        }
+        
+        .admin-info h4 {
+            font-family: var(--font-dot);
+            font-size: 2rem;
+            color: #0288d1;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 rgba(2, 136, 209, 0.2);
+        }
+
+        .admin-philosophy {
+            background: rgba(2, 136, 209, 0.05);
+            border: 3px dashed #0288d1;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #01579b;
+        }
+
+        /* スマホ対応 (レスポンシブ) */
+        @media (max-width: 950px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 8px solid #000; padding: 20px; }
+            nav .nav-logo-area { margin-bottom: 20px; }
+            nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .nav-link { margin-bottom: 0; font-size: 1rem; padding: 10px; }
+            main { margin-left: 0; padding: 40px 15px; }
+            .mc-section { padding: 30px 15px; }
+            h2 { font-size: 1.8rem; padding: 8px 15px; left: 15px; }
+            .val { font-size: 1.4rem; }
+            .admin-flex { flex-direction: column; align-items: center; text-align: center; padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div style="position:fixed; top:0; left:0; width:100%; height:100vh; z-index:-1;
+                background: linear-gradient(135deg, rgba(26,42,108,0.2), rgba(121,9,9,0.2), rgba(11,23,38,0.2));
+                filter: blur(100px); animation: move-aurora 20s ease-in-out infinite alternate;">
+    </div>
+    <style>@keyframes move-aurora { from { transform: scale(1); } to { transform: scale(1.2); } }</style>
+
+    <nav>
+        <div class="nav-logo-area">
+            <h1>しろくま鯖</h1>
+            <p class="sub">Bedrock Edition 24H</p>
+        </div>
+        <ul>
+            <li><a href="#welcome" class="nav-link"><i class="fa-solid fa-igloo"></i> はじめに・概要</a></li>
+            <li><a href="#join" class="nav-link"><i class="fa-solid fa-server"></i> 参加方法</a></li>
+            <li><a href="#features" class="nav-link"><i class="fa-solid fa-star"></i> サーバーの特徴</a></li>
+            <li><a href="#addons" class="nav-link"><i class="fa-solid fa-cubes"></i> 導入アドオン</a></li>
+            <li><a href="#rules" class="nav-link"><i class="fa-solid fa-book"></i> ルール・規約</a></li>
+            <li><a href="#admin" class="nav-link"><i class="fa-solid fa-user-gear"></i> 管理者・理念</a></li>
+            <li><a href="https://discord.gg/E9geQyZjS8" target="_blank" class="nav-link" style="background:#5865F2;"><i class="fa-brands fa-discord"></i> 公式Discord</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="welcome" class="mc-section">
+            <h2>はじめに・概要</h2>
+            <p><strong>しろくま鯖</strong>は、誰でも気軽に参加できるMinecraft Bedrock Edition（統合版）の24時間公開サバイバルサーバーです。</p>
+            <p>このサーバーでは、建築・探索・資源集め・街づくりなど、Minecraftのサバイバルを自由に楽しむことができます。のんびりと自分の拠点を作ったり、遠くまで冒険に出かけたり、他のプレイヤーと協力して大きな街を作ったりと、プレイヤーそれぞれのスタイルで遊べる環境を目指しています。</p>
+            
+            <div class="spec-box">
+                <li>建築が壊される心配が少ない</li>
+                <li>初心者でも安心して遊べる</li>
+                <li>のんびりサバイバルを楽しめる</li>
+            </div>
+
+            <p>しろくま鯖は <strong>24時間稼働</strong> しているため、いつでも好きな時間に参加して遊ぶことができます。「夜しか遊べない」「休日にまとめて遊びたい」「空いた時間に少しだけ遊びたい」という人でも安心して参加できます。</p>
+        </section>
+
+        <section id="join" class="mc-section">
+            <h2>参加方法・情報</h2>
+            <p>サーバー一覧から「サーバーを追加」を選択し、以下の情報を正確に入力してください。黒いカードをクリックするとコピーできます！</p>
+            
+            <div class="info-grid">
+                <div class="info-card" onclick="copy('05.jpn.gg')">
+                    <span class="label">サーバーアドレス (IP)</span>
+                    <span class="val">05.jpn.gg</span>
+                </div>
+                <div class="info-card" onclick="copy('10274')">
+                    <span class="label">ポート番号 (Port)</span>
+                    <span class="val">10274</span>
+                </div>
+            </div>
+
+            <h3>サーバー基本データ</h3>
+            <ul style="margin-left: 20px; line-height: 2; font-weight:bold; color: #333;">
+                <li><strong>対応：</strong> Minecraft Bedrock Edition（統合版）</li>
+                <li><strong>ゲームモード：</strong> サバイバル</li>
+                <li><strong>難易度：</strong> ノーマル</li>
+                <li><strong>稼働時間：</strong> 24時間フル稼働（メンテナンス時を除く）</li>
+            </ul>
+        </section>
+
+        <section id="features" class="mc-section">
+            <h2>サーバーの特徴</h2>
+            
+            <h3><i class="fa-solid fa-clock"></i> 24時間稼働サーバー</h3>
+            <p>しろくま鯖は 24時間稼働しているため、時間帯を気にせずいつでも参加できます。自分の好きなタイミングで、忙しい生活スタイルの人でも遊びやすいサーバーです。あなたのマイクラライフのペースを尊重します。</p>
+
+            <h3><i class="fa-solid fa-user-check"></i> 初心者に優しい環境</h3>
+            <p>マルチサーバーが初めての人でも遊びやすいように、荒らし対策や土地保護などのアドオンを導入しており、建築や拠点を安心して作ることができるようになっています。何かわからないことがあれば、Discordで気軽に質問してください。</p>
+
+            <h3><i class="fa-solid fa-people-arrows"></i> プレイヤー同士の交流</h3>
+            <p>サーバーではプレイヤー同士の交流も大切にしており、協力して建築をしたり、街を発展させたりと、マルチプレイならではの楽しみ方もできます。現在はプレイヤーを募集中で、これから一緒にサーバーの世界を作っていく仲間を探しています。</p>
+        </section>
+
+        <section id="addons" class="mc-section">
+            <h2>導入アドオン紹介</h2>
+            <p>サバイバルをより楽しく、安全にするためのシステムを導入しています。</p>
+
+            <div class="addon-grid">
+                <div class="addon-tile">
+                    <h4><i class="fa-solid fa-shield-halved"></i> 土地保護システム</h4>
+                    <p>チャンク保護アドオンにより、自分の土地を保護し、建築の破壊やチェストの無断開封を防止。安心して拠点を作れます。</p>
+                    <a href="https://minecraft-mcworld.com/60639/" target="_blank" class="how-to-link">土地保護の使い方</a>
+                </div>
+
+                <div class="addon-tile">
+                    <h4><i class="fa-solid fa-tombstone"></i> 墓石システム</h4>
+                    <p>死亡時に墓石が生成され、全アイテムが保存。アイテムを失う心配がなく、初心者でも安心です。</p>
+                    <a href="https://minecraft-mcworld.com/203725/" target="_blank" class="how-to-link">墓石の使い方を見る</a>
+                </div>
+
+                <div class="addon-tile">
+                    <h4><i class="fa-solid fa-tree"></i> 木こりアドオン</h4>
+                    <p>木をまとめて伐採できる便利機能。資源集めが快適になり、建築素材を集めやすくなっています。</p>
+                    <a href="https://minecraft-mcworld.com/37207/" target="_blank" class="how-to-link">木こりの詳細</a>
+                </div>
+
+                <div class="addon-tile">
+                    <h4><i class="fa-solid fa-border-all"></i> チャンク境界表示</h4>
+                    <p>装置作りや綺麗な建築の配置に役立つ境界表示。効率よく作業を進めることができます。</p>
+                    <a href="https://minecraft-yutakura.com/chunk-borders/" target="_blank" class="how-to-link">境界表示の使い方</a>
+                </div>
+
+                <div class="addon-tile">
+                    <h4><i class="fa-solid fa-magnifying-glass-shield"></i> 荒らし対策</h4>
+                    <p>不審な行動を検知・記録し、サーバーの安全性を高める運営を行っています。</p>
+                    <a href="https://minecraft-mcworld.com/144818/" target="_blank" class="how-to-link">荒らし対策の詳細</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="rules" class="mc-section">
+            <h2>利用規約（ルール）</h2>
+            <p>みんなが楽しく遊ぶために、以下のルールを守ってください。</p>
+
+            <div class="rule-card">
+                <strong>荒らし行為の禁止</strong>
+                <p>他人の建築物を壊す、チェストを無断で開けるなどの行為は絶対に禁止です。</p>
+            </div>
+            <div class="rule-card">
+                <strong>チート・不正ツールの禁止</strong>
+                <p>透過、飛行、チートクライアントの使用、およびアイテム増殖などの行為は禁止です。</p>
+            </div>
+            <div class="rule-card">
+                <strong>迷惑行為・暴言の禁止</strong>
+                <p>スパム、暴言、誹謗中傷など他プレイヤーが不快になる行為は避けてください。</p>
+            </div>
+            <div class="rule-card">
+                <strong>サーバー負荷行為の禁止</strong>
+                <p>ラグマシンや過度な装置など、サーバーを重くする行為は禁止です。</p>
+            </div>
+
+            <p style="font-weight: bold; color: var(--mc-red);"><i class="fa-solid fa-exclamation-triangle"></i> その他、状況に応じて管理者の判断で入室をお断りさせていただく場合があります。あらかじめご了承ください。</p>
+        </section>
+
+        <section id="admin" class="mc-section">
+            <h2>管理者紹介・理念</h2>
+            <div class="admin-flex">
+                <div class="admin-icon-wrapper">
+                    <div class="admin-avatar-fallback">🐻</div>
+                    <img id="admin-icon" src="24b61cf0-5712-4217-bf41-79737e411516.png" class="admin-avatar" alt="運営アイコン" onload="this.style.opacity='1'">
+                </div>
+                <div class="admin-info">
+                    <h4>Mrsirokuma4698 (Mr.しろくま)</h4>
+                    
+                    <div class="admin-philosophy">
+                        <i class="fa-solid fa-quote-left" style="color:#0288d1; font-size:1.3rem;"></i> <strong>「みんなが安心できて、協力できて、楽しく遊べるサーバーにしたい」</strong>
+                    </div>
+                    
+                    <p>当サーバーへお越しいただきありがとうございます！サーバー主のMr.しろくまです。趣味はマイクラ、人狼ゲーム、そしてこのホームページやサーバーのお知らせを見やすく、詳しくするためのプログラミング（HTML/CSS/JS）です。</p>
+                    
+                    <p>私はサーバーを運営する上で、単に「場所を提供すること」ではなく、皆さんが安心して建築や拠点を作れる環境作りを大切にしています。マルチプレイが初めての人でも安心して、のんびりとサバイバルを楽しみ、時には協力して街を発発展させていきましょう。一緒にしろくま鯖の世界を一緒に盛り上げましょう！どなたでも気軽に遊びに来てください。</p>
+                    
+                    <p style="font-size: 0.9rem; color: #555;"><i class="fa-solid fa-heart"></i> <strong>趣味・好きなこと：</strong> Minecraft / 人狼ゲーム / プログラミング（Web開発）</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="discord" class="mc-section" style="background: #2c2f33; color: white; border-color: #5865F2;">
+            <h2 style="background: #5865F2; border-color: white;"><i class="fa-brands fa-discord"></i> Discordに参加</h2>
+            <p>しろくま鯖のお知らせやプレイヤー同士の交流はDiscordで行っています。不具合報告や新しい仲間の募集、街の発展計画など、ここが私たちの「作戦会議室」です！</p>
+            <p>初心者から経験者まで、どなたでも歓迎しています。ぜひ気軽に参加して、しろくま鯖の世界を一緒に発展させていきましょう！</p>
+            <a href="https://discord.gg/E9geQyZjS8" target="_blank" class="nav-link" style="background: #5865F2; font-size: 1.5rem; border-color: white;">公式Discordサーバーへ</a>
+        </section>
+
+        <p style="text-align: center; color: white; padding-bottom: 60px; font-family: var(--font-dot);">
+            © 2026 しろくま鯖 | Happy Minecraft Life!
+        </p>
+    </main>
+
+    <script>
+        // コピー機能
+        function copy(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('コピーしたよ！: ' + text);
+            });
+        }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <div id="gemini-chat-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Noto Sans JP', sans-serif;">
+        <button id="chat-toggle-btn" onclick="toggleGeminiChat()" style="width: 70px; height: 70px; background: #3498db; color: white; border-radius: 50%; border: 4px solid #000; font-size: 30px; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: 0.2s;">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+
+        <div id="gemini-chat-window" style="display: none; width: 320px; height: 450px; background: #C6C6C6; border: 5px solid #000; border-radius: 2px; box-shadow: 10px 10px 0 rgba(0,0,0,0.2), inset -4px -4px 0 #555, inset 4px 4px 0 #fff; flex-direction: column; position: absolute; bottom: 85px; right: 0;">
+            <div style="background: #333; color: #FFAA00; padding: 10px 15px; border-bottom: 4px solid #000; font-family: 'DotGothic16', sans-serif; display: flex; justify-content: space-between; align-items: center;">
+                <span>しろくま鯖案内AI</span>
+                <button onclick="toggleGeminiChat()" style="background:none; border:none; color:#fff; cursor:pointer; font-size: 20px;">×</button>
+            </div>
+            <div id="gemini-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; line-height: 1.5; color: #000;">
+                <div style="background: #fff; padding: 8px; border: 2px solid #000; margin-bottom: 10px; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">
+                    こんにちは！しろくま鯖について何でも聞いてね！🐾
+                </div>
+            </div>
+            <div style="padding: 10px; background: #8B8B8B; border-top: 4px solid #000; display: flex; gap: 5px;">
+                <input type="text" id="gemini-input" placeholder="質問を入力..." style="flex: 1; border: 3px solid #000; padding: 8px; font-family: 'Noto Sans JP'; outline: none;">
+                <button onclick="sendGeminiMessage()" style="background: #3498db; color: white; border: 3px solid #000; padding: 5px 15px; cursor: pointer; font-family: 'DotGothic16'; font-weight: bold; text-shadow: 1px 1px 0 #000;">送信</button>
+            </div>
+        </div>
+    </div>
+    <div id="gemini-chat-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; font-family: 'Noto Sans JP', sans-serif;">
+        <button id="chat-toggle-btn" onclick="toggleGeminiChat()" style="width: 70px; height: 70px; background: #3498db; color: white; border-radius: 50%; border: 4px solid #000; font-size: 30px; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: 0.2s;">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+
+        <div id="gemini-chat-window" style="display: none; width: 320px; height: 450px; background: #C6C6C6; border: 5px solid #000; border-radius: 2px; box-shadow: 10px 10px 0 rgba(0,0,0,0.2), inset -4px -4px 0 #555, inset 4px 4px 0 #fff; flex-direction: column; position: absolute; bottom: 85px; right: 0;">
+            <div style="background: #333; color: #FFAA00; padding: 10px 15px; border-bottom: 4px solid #000; font-family: 'DotGothic16', sans-serif; display: flex; justify-content: space-between; align-items: center;">
+                <span>しろくま鯖案内AI 🐾</span>
+                <button onclick="toggleGeminiChat()" style="background:none; border:none; color:#fff; cursor:pointer; font-size: 20px;">×</button>
+            </div>
+            <div id="gemini-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; line-height: 1.5; color: #000; background: #f0f0f0;">
+                <div style="background: #fff; padding: 8px; border: 2px solid #000; margin-bottom: 10px; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">
+                    こんにちは！しろくま鯖公式案内AIだよ。参加方法やルールのことなら何でも聞いてね！🐾
+                </div>
+            </div>
+            <div style="padding: 10px; background: #8B8B8B; border-top: 4px solid #000; display: flex; gap: 5px;">
+                <input type="text" id="gemini-input" placeholder="質問を入力..." style="flex: 1; border: 3px solid #000; padding: 8px; font-family: 'Noto Sans JP'; outline: none;">
+                <button onclick="sendGeminiMessage()" style="background: #3498db; color: white; border: 3px solid #000; padding: 5px 15px; cursor: pointer; font-family: 'DotGothic16'; font-weight: bold; text-shadow: 1px 1px 0 #000;">送信</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 設定済みのAPIキー ---
+        const GEMINI_API_KEY = "AIzaSyAXw0n1jyRZf17C_XBaeL3XL4-mcGgwseo";
         const geminiChatWindow = document.getElementById('gemini-chat-window');
         const geminiMessages = document.getElementById('gemini-messages');
         const geminiInput = document.getElementById('gemini-input');
 
         function toggleGeminiChat() {
-            geminiChatWindow.style.display = (geminiChatWindow.style.display === 'none' || geminiChatWindow.style.display === '') ? 'flex' : 'none';
+            const isNone = geminiChatWindow.style.display === 'none' || geminiChatWindow.style.display === '';
+            geminiChatWindow.style.display = isNone ? 'flex' : 'none';
         }
 
         async function sendGeminiMessage() {
@@ -14,7 +577,6 @@
 
             addGeminiMessage("あなた", text, false);
             geminiInput.value = '';
-
             const loadingMsg = addGeminiMessage("AI", "考え中...", true);
 
             try {
@@ -25,39 +587,34 @@
                         contents: [{
                             parts: [{
                                 text: `
-# 役割
-あなたはマインクラフト統合版サーバー「しろくま鯖」の公式コンシェルジュAIです。
-管理者の「Mr.しろくま」に代わって、プレイヤーの質問に親身に答えてください。
+あなたはマインクラフト統合版サーバー「しろくま鯖」の専門案内AIです。以下の情報を完璧に把握し、親切な口調で回答してください。
 
-# しろくま鯖の核となる情報
-- **サーバー名**: しろくま鯖
-- **コンセプト**: 誰でも気軽に、24時間、のんびり自由にサバイバルを楽しめる場所。
-- **参加情報**: 
-    - IP: 05.jpn.gg
-    - ポート: 10274
-    - 対象: 統合版（Bedrock Edition）専用。Switch/スマホ/PC/PS等から参加可能。
+# サーバーの基本情報
+- 名前: しろくま鯖 (24時間稼働の公開サバイバルサーバー)
+- 接続情報: IP「05.jpn.gg」、ポート「10274」
+- 対応: Minecraft Bedrock Edition (統合版) 専用
+- 難易度: ノーマル / モード: サバイバル
 
-# 導入システム解説（リンク付き）
-質問に関連する内容があれば、必ず以下のURLを添えて案内してください。
-1. **土地保護**: 自分の建物を守る必須機能。
-   URL: https://minecraft-mcworld.com/60639/
-2. **墓石**: 死んでもアイテムが散らばらず、墓に残る安心システム。
-   URL: https://minecraft-mcworld.com/203725/
-3. **木こり**: 木を一括で倒せる便利機能。
-   URL: https://minecraft-mcworld.com/37207/
-4. **チャンク境界**: 装置作りに便利な表示機能。
-   URL: https://minecraft-yutakura.com/chunk-borders/
-5. **荒らし対策**: 24時間監視中。
-   URL: https://minecraft-mcworld.com/144818/
+# 主要システムとURL (質問に関連があれば必ず紹介して)
+1. 土地保護: チャンク保護アドオン。自分の拠点を守れるよ。
+   詳細: https://minecraft-mcworld.com/60639/
+2. 墓石システム: 死んでもアイテムが墓に保存されるから安心！
+   詳細: https://minecraft-mcworld.com/203725/
+3. 木こりアドオン: 木を一括伐採できて資源集めが楽。
+   詳細: https://minecraft-mcworld.com/37207/
+4. チャンク境界表示: 装置作りに便利。
+   詳細: https://minecraft-yutakura.com/chunk-borders/
+5. 荒らし対策: 24時間監視で安全な環境だよ。
+   詳細: https://minecraft-mcworld.com/144818/
 
-# 運営ルール
-- **禁止事項**: 荒らし、チート（透過・飛行など）、暴言、他人が不快になる行為、サーバーに負荷をかける装置。
-- **Discord**: 交流や不具合報告のメイン場所。 https://discord.gg/E9geQyZjS8
+# 運営とコミュニティ
+- 管理者: Mr.しろくま (Mrsirokuma4698)
+- Discord: https://discord.gg/E9geQyZjS8 (交流や報告のメイン会場)
 
-# 振る舞いのガイドライン
-- **口調**: 親切でフレンドリー。語尾に「〜だよ」「〜してみてね！」「🐾（肉球マーク）」をたまに使うとしろくま鯖っぽくなります。
-- **初心者の対応**: 「マルチが初めて」という人には、「まずは土地保護の設定からやってみるのがおすすめだよ！」と優しくアドバイスしてください。
-- **分からないこと**: 専門外のことや、設定の深い質問をされたら「それはボクには分からないから、Discordで Mr.しろくま や運営メンバーに聞いてみてね！」と誘導してください。
+# 振る舞いルール
+- 語尾は「〜だよ」「〜してみてね！」「🐾」などを使い、フレンドリーに。
+- 荒らしやチートは絶対禁止と伝えて。
+- 分からないことは「Discordで Mr.しろくま に聞いてみてね！」と案内して。
 
 質問: ${text}`
                             }]
@@ -71,21 +628,18 @@
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     addGeminiMessage("AI", data.candidates[0].content.parts[0].text, true);
                 } else {
-                    addGeminiMessage("AI", "ごめんね、うまく答えられなかったよ。通信状況を確認してみて！", true);
+                    addGeminiMessage("AI", "ごめんね、うまく答えられなかったよ。もう一回送ってみて！", true);
                 }
             } catch (error) {
                 loadingMsg.remove();
-                addGeminiMessage("AI", "エラーが発生したよ。APIキーが正しいか、GitHub Pagesに公開されているか確認してね。", true);
+                addGeminiMessage("AI", "接続エラーが発生したよ。APIキーが有効か確認してみてね。", true);
             }
         }
 
         function addGeminiMessage(sender, text, isAi) {
             const msgDiv = document.createElement('div');
-            msgDiv.style.cssText = `
-                margin-bottom: 10px; padding: 8px; border: 2px solid #000; font-size: 13px;
-                ${isAi ? "background: #fff; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);" : "background: #e3f2fd; text-align: right;"}
-            `;
-            msgDiv.innerHTML = `<strong>${sender}:</strong><br>${text.replace(/\n/g, '<br>')}`;
+            msgDiv.style.cssText = \`margin-bottom: 10px; padding: 8px; border: 2px solid #000; font-size: 13px; \${isAi ? "background: #fff; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);" : "background: #e3f2fd; text-align: right;"}\`;
+            msgDiv.innerHTML = \`<strong>\${sender}:</strong><br>\${text.replace(/\\n/g, '<br>')}\`;
             geminiMessages.appendChild(msgDiv);
             geminiMessages.scrollTop = geminiMessages.scrollHeight;
             return msgDiv;
